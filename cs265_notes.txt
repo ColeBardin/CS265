@@ -1,0 +1,6 @@
+CS265 Notes
+June 21st, 2022
+
+Bash scripting
+
+
