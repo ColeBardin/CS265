@@ -1,7 +1,15 @@
 CS265 Notes
 June 21st, 2022
 
-Bash scripting
+Bash scripting in command-line interface
 
+Objectives:
+	use linux commands to traverse filesytems
+	write shell scripts to aid development
+	write non-trivial C programs
+	effectively use pointers in C
+	use C memory management
+	use Make utility to manage build
+	use debugger
 
 
