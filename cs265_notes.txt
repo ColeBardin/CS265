@@ -13,3 +13,39 @@ Objectives:
 	use debugger
 
 
+TUX serves environment
+ssh cab572@tux.cs.drexe.edu
+
+
+many 'flavors' of UNIX
+
+
+POSIX:
+	IEEE Portable Operatix System based on Unix
+
+SUS (Single Unix Specification):
+	by the Open Group
+	they certify unix distributions
+	once certified, it can be called 'All Capital'
+	MacOS is certified but Linux is not
+
+
+Unix unix or UNIX
+
+Unix:	family of OS that includes UNIX operating systems or UNIX like
+UNIX operating systems:		OS that have been certifed (MacOS)
+Unix-Like Operating systems:	OS that have not been certified (GNU, Linux)
+
+
+
+OS Primary Features:
+Abstraction:
+	provides execution environment for program and use system resources through unified interface regardless of hardware
+
+Isolation:
+	execution of program doesn't interfere with execution of other programs, and they can occur concurrently
+
+Security:
+	applies security policy that controls coordinates access to system resources so programmers cannot break abstraction or isolation requirements
+
+
