@@ -49,3 +49,35 @@ Security:
 	applies security policy that controls coordinates access to system resources so programmers cannot break abstraction or isolation requirements
 
 
+
+POSIX Compliance for command line arguments:
+must include - or -- before argument and be separated with whitespace from command
+
+
+non-option arguments are data passed to the command
+
+
+`tar xvf file` is not POSIX compliant but it runs (tar is for take archive)
+
+`tail -f -n30 error.log`
+tail displays end of file
+f (follow) updates when file is updated
+n30 displays last 30 lines
+
+
+
+Quotes:
+ls a*t is different from ls 'a*t'
+
+Double Quotes:
+can protect special characters but $,\,`..` will still be interpreted
+
+
+stat shows all metadeta of file
+ls -ot displays all files in order of last modification time
+
+
+
+
+
+
