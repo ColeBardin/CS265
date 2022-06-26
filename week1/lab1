@@ -1,0 +1,13 @@
+Lab1 by Cole Bardin
+
+Q1: file saved as vi_lab
+
+Q2: it edited the command in history to print 'Line Two' to the terminal 
+
+Q3: it edited the command in history to capitalize the l to print "Line Three" to the terminal
+
+Q4: I copied these files to my home directory so I see my CS265 dir, funny and hello.bash
+
+Q5: chmod 644 file gives owner read and write permissions but everyone else only read permissions
+
+Q6: chmod 755 file gives onwer full access and everyone else read and execute permissions
