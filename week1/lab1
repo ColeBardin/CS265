@@ -11,3 +11,29 @@ Q4: I copied these files to my home directory so I see my CS265 dir, funny and h
 Q5: chmod 644 file gives owner read and write permissions but everyone else only read permissions
 
 Q6: chmod 755 file gives onwer full access and everyone else read and execute permissions
+
+Q7: Yes, everyone can read my funny after calling chmod 644 funny
+
+Q8: Yes, everyone can read my hello.bash after caling chmod 644 hello.bash 
+
+Q9: No, I was not able to execute hello.bash
+
+Q10: chmod 755 hello.bash OR chmod ugo+x hello.bash
+
+Q11: VIM warned me about editing a read only file and would not let me save changes
+
+Q12:
+	ls * listed all files then directories and their immediate contents
+	ls a* listed all files that began with a
+	ls *m* listed all files and directories+contents that included an m in their name
+	ls anno? listed annoy file
+	ls annoy? could not list anything since there is no file with filename 1 character of separation from 'annoy'
+
+Q13: it created two empty files for me to edit called 'a' and 'space'
+
+Q14: for ls options
+	-h lists files in a 'human-readable' way
+	-l lists files in a long format
+	-t lists files sorted by modification time
+	-A lists all files exept implied ones line . and ..
+	-d lists all directories but not their contents
