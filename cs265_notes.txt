@@ -80,7 +80,69 @@ stat shows all metadeta of file
 ls -ot displays all files in order of last modification time
 
 
+displays all files in subdirs of ~ of type f with .txt ext then lists it with their number of lines
+find ~/ -type f -name '*.txt' | xargs wc -l
 
+
+ps to show current processes
+options:
+blank: displays all user processes
+-e lists all processes in the system
+-f uses full format listing
+
+
+run process in background:
+cmd &
+ls &
+runs program without disabling shell for runtime
+
+
+
+SIGNALS in UNIX environment
+predefined asynch messages sent to a running program to trigger a specific behavior
+similar to INTERRUPTS but insted of being handled by kernel, they're handled by process
+
+very limited form of IPC (inter process communication)
+common signals are: interrupt, suspend, terminate
+
+User generated signals:
+SIGSTOP (pause)
+SIGKILL (terminate) CTRL-C
+
+
+kill command:
+kill PID ex. 
+
+kill 29940
+kill -s 15 29940
+kill -15 29940
+kill -SIGTERM 29940
+all do the same thing
+it's possible process may ignore them
+how to force it:
+kill -9 29940
+kill -s 9 29940
+kill -SIGKILL 29940
+kill -KILL 29940
+process CANNOT ignore this kill signal
+
+CTRL-C (terminates process, SIGTERM)
+CTRL-Z (pauses process, SIGSTP)
+CTRL-D (sends EOF marker)
+
+
+
+
+after pausing a process:
+^Z suspends process in foreground
+fg brings most recent process to the foreground
+
+./sample
+^Z 
+[1]+ Stopped 	./sample
+
+fg brings most recent process back
+or fg %1 to bring back process with ID of 1 back
 
 
 
