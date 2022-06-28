@@ -1,6 +1,9 @@
 CS265 Notes
 June 21st, 2022
 
+LAB DIRECTORY: 
+tux:~kschmidt/public_html/CS265/Labs/Unix
+
 Bash scripting in command-line interface
 
 Objectives:
