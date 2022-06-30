@@ -166,5 +166,51 @@ Redirect IO to a file:
 ls > list.out (truncates list.out if it already exists)
 ls >> list.out (appends output to end of list.out)
 
-ls | tee list.out to redirect output to a file list.out AND display it in stdout
+To redirect output to a file list.out AND display it in stdout
+$ ls | tee list.out
 
+cat with no arguments will read from stdin:
+$ cat > out.txt
+$ line 1
+$ line 2
+$ final line
+$ ^D
+$
+
+Specify file descriptors for > operand:
+$ java test 2> error.log
+
+redirect fd0 and fd2 to two different files:
+$ java test > output.log 2> error.log
+
+redirect stdout and stderr to same file (>&1);
+$ find . -name 'core*' > core.list 2>&1
+ORDER MATTERS
+bash has syntactic sugar for this redirecting:
+
+$ find . -name 'core*' &> core.list
+
+Will direct both STDOUT and STDERR to core.list
+
+
+Redirect from STDIN
+$ sort < nums
+runs sort command but accep tinput from file numns
+or
+$ mail -s"My Subject" $id < msg
+
+you can do both redirecting at the same time
+$ sort < nums > sortednums 2> sort.errors
+$ tr 'a-z' 'A-Z' < code.rot13 > decoded
+translate lowercase to uppercase from code.rot13 and save as into decoded file
+
+
+Pipes redirect stdout from program1 to stdin of program2
+can be interlaced with > < operators as well
+
+
+
+BASIC SHELL SCRIPTING
+pushd & popd commands
+pushd saves current directory in memory
+popd removes current directory in memory
