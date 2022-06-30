@@ -146,3 +146,25 @@ or fg %1 to bring back process with ID of 1 back
 
 
 
+
+I/O Redirection
+stdin, fd 0, default keyboard
+stdout, fd 1, default screen
+stderr, fd 2 default screen
+
+
+all have functions: open(), close(), read(), write()
+
+^D to send EOF of stdin
+
+ways to manipulate a file descriptor:
+redirect to a file
+or use a pipe
+
+
+Redirect IO to a file:
+ls > list.out (truncates list.out if it already exists)
+ls >> list.out (appends output to end of list.out)
+
+ls | tee list.out to redirect output to a file list.out AND display it in stdout
+
