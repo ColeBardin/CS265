@@ -4,27 +4,27 @@ Q1: It listed all the files (including hidden ones) and all the directories incl
 
 Q2: find -type f -name '*.bash'
 
-Q3:
+Q3: 499 breadIsDangerous.txt
 
-Q4:
+Q4: 499
 
-Q5:
+Q5: ls -l | wc -l
 
-Q6:
+Q6: grep -i bread breadIsDangerous.txt
 
-Q7:
+Q7: grep -i the breadIsDangerous.txt | wc -l
 
-Q8:
+Q8: it added spellExample.bak which contained all the spelling mistakes
 
-Q9:
+Q9: it showed the difference between the files at each line if they differed 
 
-Q10:
+Q10: nothing since it was they're the same file
 
-Q11:
+Q11: yes since I knew what the sort command did. it was sorted by character (digit) instead of value of number
 
-Q12:
+Q12: yes this output differed. it sorted the numbers by their values instead of just the characters
 
-Q13:
+Q13: they are sorted by filesize 
 
 Q14:
 
