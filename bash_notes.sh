@@ -121,4 +121,226 @@ $ echo '\$USER is $USER'
 	$ cmd1 && cmd2 (runs cmd2 IF cmd1 succeeds, does not if cmd1 fails)
 	$ cmd1 || cmd2 (runs cmd2 IF cmd1 fails, does not if cmd1 succeeds)
 	
-	
+
+
+# Indentify the interpreter
+first line should always identify the shell interpreter
+example:
+
+#!/bin/bash
+or
+#!/bin/sh
+
+
+# Variable types
+1.	command-line arguments
+	$0		name of script
+	$1		first command-line argument
+	$2		second command-line argument
+	...
+	${n} 	n-th command-line argument
+	$#		number of arguments
+	$* 		all arguments (one string with all arguments)
+	$@		all arguments (each argument as its own string)
+2.	process-related variables
+	$$		the process id (PID)
+	$?		exit status of last command (0 is success, nonzero means error)
+3.	environment variables
+	$USER
+	$HOME
+	$PATH
+	printenv	displays all environment variables
+	export var	adds var to environment variables
+4.	shell variables
+	$DIRSTACK
+	$HISTFILE
+	$SHELLOPTS
+	set			# Displays shell variables
+	set -o posix	
+5.	user-defined variables
+	my_var=value
+	# Note: no spaces around equal sign
+	$my_var
+	accesses contents of variable
+
+
+# Null device
+/dev/null is a device that discards all data written to it
+checks exit status of program and ignore output 
+diff f1 f2 > /dev/null
+ignore both exit status and stdout
+diff f1 f2 >& /dev/null
+
+
+
+# Control Flow and Structures
+# Branching
+if
+if-else
+if-elif-else
+case
+
+# Loops:
+while
+until
+for
+select
+
+
+# Conditions and Tests
+1.	test, [ ]	Provides string, numeric, and file tests
+2.	[[ ]]		Similar to [], but gentler syntax
+3.	let, (( ))	Provides numeric tests and arithmetic
+
+# Test command:
+general form: test expr
+
+example:
+if test $name = "Dimitra"
+then
+	echo 'Hello Dimitra!'
+fi
+
+
+
+# [] form (Mostly for strings and files)
+generam form: [ expr ]
+	# NOTE: spaces around the = sign must match and there MUST be a space padding [] from expr
+example:
+if [ $name = "Dimitra" ]
+then
+	echo 'Helo Dimitra';
+fi
+
+String Tests:
+	operators: < = != > ( < and > must be escaped with \ )
+	[ $var = "Dimitra" ] 
+	[ $var != "Dimitra" ]
+	[ $var \< "Dimitra" ]
+
+Unary tests for strings:
+	-z True if string is empty
+	-n True if string is NOT empty
+	[ -z "$1" ] 
+	# checks if first command line argument is empty
+
+File Tests:
+-a file		True if file exists
+-e file		True if file exists
+-f file		True if file is a regular file
+-c file		True if file is a character file
+-d file		True if file is a directory
+! -d file	True if file is NOT a directory
+
+Binary operators for files:
+f1 -nt f2		True if f1 is newer that f2
+f1 -ot f2		True if f1 is older than f2
+f1 -ef f2		True if f1 is a hardlink to f2 (same file)
+
+Numeric tests:
+n1 -eq n2	Equal
+n1 -lt n2	Less than
+n1 -gt n2	Greater than
+n1 -ne n2	Not equal
+n1 -le n2	Less than or equal to
+n1 -ge n2	Greater than or equal to
+# NOTE: not using < > = != since these are for STRING tests
+ex:
+if [ $a -lt $b ] 
+then
+	echo "$a is less than $b";
+fi
+
+Logical Operators:
+! expr			NOT
+exp1 -a exp2	AND
+exp1 -o exp2	OR
+
+
+
+# [[ ]] 
+Shell metacharacters (< and >) dont need to be escaped
+Supports familiar logical operators:
+	! && ||
+Tests using == and = are equivalent
+== and != treat right operand as a pattern (glob / wildcard matching)
+	[[ abcde.f == a.*e\..? ]] # Is file on left of form on right
+=~ treats the right operand as an extended regular expression (egrep)
+	[[ abcde.f =~ a.*e\..? ]]
+
+# NOTE: do not use [[ ]] for arithmetic tests using <, >
+# [[ ]] also does string comparison
+
+
+
+# (( )) Arithmetic Evaluation
+can be used in conditionals
+# NOTE: only for INTEGERS
+x=5
+if (( $x > 7 ))
+then
+	echo "$x is greater than 7";
+fi
+
+
+# Let command for arithmetic evaluation
+general form: let arithmetic-expr
+example: # Spaces are NOT important here
+	let "X = 1+1"
+	let "X = X +1"
+	let "X = $X + 1"
+
+# (()) and let arithmetic operatods
+Arithmetic: ** * / % + -
+Bit-wise: ~ << >> ^ & |
+Increment/Decrement: ++ --
+Java like ternary operator: ?:
+Assignment operators: = += -= &= etc
+
+(()) can be used to contain arithmetic operations:
+x=5
+echo $(( x+15 )) 
+
+let a=1+1	# Variable creation with simple arithmetic expansion
+a=$((1+1))	# Arithmetic expansion, result of expression replaces the expression
+a=$(expr 1 + 1)	#
+
+
+# Control flow:
+if tests
+then
+	cmds;
+fi
+
+OR:
+if tests; then cmds; fi
+
+# Else if 
+if tests
+then
+	cmds;
+elif tests
+	cmds;
+else
+	cmds;
+fi
+
+# Case statements
+case word in
+pattern1) cmds;; # Singular patterns
+pattern2 | pattern3) cmds;; # Multiple patterns
+'*') cmds;; # Otherwise/default
+esac
+# uses patterns not regular expressions
+
+case word in {pattern ) cmds;;} esac
+
+Example:
+#!/bin/bash
+case $1 in
+	n ) echo "n" ;;
+	x ) echo "x" ;;
+	\? | h | H ) echo "Use option n or x"; exit 1;;
+	?)	echo "unknown character" ;;
+esac
+
