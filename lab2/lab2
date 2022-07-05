@@ -28,8 +28,11 @@ Q13: they are sorted by filesize
 
 Q14:
 
-Q15:
+Q15: grep dough breadIsDangerous.txt gave a return status of 0, meaning it matched a line. grep uniqueString
+breadIsDangerous.txt returned 1 meaning it found no matching lines. grep dough noSuchFile returned 2 meaning an error
+occured.
 
-Q16:
+Q16: it printed "File breadIsDangerous.txt has 499 words" to the screen
 
-Q17:
+Q17: Using $PWD var: echo "The current directory is: $PWD"
+	Using pwd cmd: echo "The current directory is: $(pwd)"
