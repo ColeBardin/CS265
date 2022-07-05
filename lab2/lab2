@@ -26,7 +26,7 @@ Q12: yes this output differed. it sorted the numbers by their values instead of 
 
 Q13: they are sorted by filesize 
 
-Q14:
+Q14: du * | sort -n -r | head -n 8
 
 Q15: grep dough breadIsDangerous.txt gave a return status of 0, meaning it matched a line. grep uniqueString
 breadIsDangerous.txt returned 1 meaning it found no matching lines. grep dough noSuchFile returned 2 meaning an error
