@@ -140,8 +140,8 @@ or
 	...
 	${n} 	n-th command-line argument
 	$#		number of arguments
-	$* 		all arguments (one string with all arguments)
-	$@		all arguments (each argument as its own string)
+	$* 		all arguments (one string with all arguments, not counting program call)
+	$@		all arguments (each argument as its own string, not counting program call)
 2.	process-related variables
 	$$		the process id (PID)
 	$?		exit status of last command (0 is success, nonzero means error)
@@ -333,7 +333,7 @@ pattern2 | pattern3) cmds;; # Multiple patterns
 esac
 # uses patterns not regular expressions
 
-case word in {pattern ) cmds;;} esac
+case word in pattern1) cmds;; pattern2) cmds;; esac
 
 Example:
 #!/bin/bash
@@ -342,5 +342,271 @@ case $1 in
 	x ) echo "x" ;;
 	\? | h | H ) echo "Use option n or x"; exit 1;;
 	?)	echo "unknown character" ;;
+
 esac
+
+
+# While loops
+while condition
+do
+		cmds
+done
+
+Example:
+i=0
+while (( $i<=12 )) ; do
+	echo $i
+	(( i+=1 ))
+done
+
+while tests; do cmds; done
+
+A commonly used structure
+cat list | while read f ; do # reads output of cat cmd and iterates line into f var
+# assume list contains one filename per line
+stat "$f" # calls stat on current filename
+done
+# repeats until output is done
+
+
+# Until loops
+until condition
+do
+	cmds;
+done
+
+
+
+# For loops
+for variable in list
+do
+	cmds
+done
+# var must be user defined, list must be list of strings separated by spaces
+
+Example 1:
+for i in a b c ; do
+	echo $i
+done
+outputs:
+a
+b
+c
+
+Example 2:
+for id in $(cat userlist) ; do
+# assumes no spaces in userIDs
+	echo "Mailing $id..."
+	mail -s "good subject" "$id"@someschool.edu < msg
+done
+
+Java/C for loops:
+for (( i=0; i<3; ++i )) ; do
+	echo $i
+done
+
+
+
+# Select loops
+select name in last
+do
+	cmds;
+done
+
+select name in list; do cmds; done
+
+# takes items specified in list, creates menu, prompts for respone, selection is stored in var name
+
+select response in "This" "That" "Quit"
+do
+	echo "You chose $respone"
+	# LOGIC TO EXIT SELECT LOOP (NECESSARY IN SOME FORM)
+	if "$response" = "Quit"
+	then
+		exit
+	fi
+done
+#output:
+1) This
+2) That
+2) Quit
+#? 2
+You chose That
+#?  
+
+#NOTE: You need built in logic to escape out of the select loop
+
+
+# Loop termination:
+break jumps to the statement after the nearest done statement (exits loop immediately)
+continue jumps to the statement before the nearest done statement (skips rest of current loop)
+
+for i in {1..42} ; do # i will be range of values
+	(( i%2 == 0 )) && continue
+	(( i%9 == 0 )) && contiunue
+	echo $i
+done
+prints out only odd numbers til a number is divisible by 9
+
+
+# User input
+- read command
+- printf command
+# using command line arguments
+
+# Reading user input - read command
+read varname 
+	# note no dollarsign
+reads from stdin
+
+Read into variable:
+read -p promt variable
+ex:
+read -p "Enter number: " var
+echo $var
+
+multiple variables read into once
+read var1 var2 var3
+reads each word into a new var, if more vars are supplied than words, all words will be also stored in last var
+
+
+# printf command
+printf format [arguments ...]
+printf "hi %s\n" "Hello"
+similar to printf from C
+
+
+# Set command
+set newarg1 newarg2
+	$1		$2
+get replaced respectively
+allows to programatically change what is stored for command line arguments
+
+
+
+# Back quotes ` `
+eclosed command invocation in `` stores output of command into var inside of ``
+dateVar = `date`
+echo $dateVar
+
+BETTER WAY TO DO IT THO
+dateVar = $(date)
+echo $dateVar
+
+
+
+# Functions in bash
+	# Function Delcaration
+function function_name {body}
+OR
+function_name() {body}
+
+functions are executed withinin same env as rest of script, so same env vars
+recursion is allowed in bash
+
+keyword: return
+	val or no val
+
+example:
+usage() {
+	echo "demo: usage: demo arg"
+}
+
+while [ $# -eq 0 ]
+	do usage ; exit # exit call exits program not just loop
+done
+echo "Continue with program.."
+
+Local variables in functions:
+use keyword: local
+function hello {
+	local USER='Elmer Fudd'
+	FOO='Hunting Wabbit'
+	echo "Hello, $USER, you are $FOO"
+}
+shell:
+$ FOO='Baking cookies'
+$ echo $USER
+cab572
+$ hello
+Hello, Elmer Fudd, you are Baking cookies
+
+
+# Range of values, Brace expansion
+{x..y} creates list of integer values between x and y, inclusively!
+also works with letters 
+{a..b} 
+
+
+# Bash arrays
+holds numbers and strings
+myArray=(1 2 "three" 4 "five")
+
+Array indexing with curly braces:
+${myArray[0]} # first element
+${myArray[@]} # all elemens
+
+Using indices of index:
+for i in ${!myArray[@]}; do
+	cmds
+done
+
+Array Syntax:
+arr=() 				Create an empty array
+arr=(1 2 3) 		Initialize array
+${arr[2]} 			Retrieve third element
+${arr[@]} 			Retrieve all elements
+${!arr[@]} 			Retrieve array indices
+${#arr[@]} 			Calculate array size
+arr[0]=3 			Overwrite 1st element
+arr+=(4) 			Append value(s)
+str=$(ls) 			Save ls output as a string
+arr=( $(ls) ) 		Save ls output as an array of files
+${arr[@]:s:n}		Retrieve n elements starting at index s
+
+Add new value at end of array:
+a[${#a[@]}]=val;
+	gets number of elements, eg 9
+	puts new val in position 9, since zero indexed
+
+Display last element:
+echo ${a[${#a[@]}-1]}
+	gets number of elements, eg 9
+	echos element at index 9-1=8 AKA last ement
+
+COMMENT ALL YOUR ARRAY CODE BECAUSE THE SYNTAX IS NASTY
+
+
+
+
+# Regular Expressions
+sequence of special characters that describe a pattern
+describes a search pattern, ie eaach RE matches a set of strings
+look like wildcards but are slightly different
+
+shells use wildcards but tools use regular expressions 
+
+regular expressions:
+	grep
+	egrep			-extended grep
+	fgrep			-"fixed" string grep
+	vi, sed, emacs
+	other tools
+
+letters and numbers are literal, they match themselves
+
+the regular expression: foobar
+matches ONLY the string: foobar
+
+Special character:
+.		Matches exactly one character 
+			fooba. matches foobar, foobat, foobay etc
+			f..bar matches foobar feabar 
+
+[..]	Matches any listed character
+			foob[aeiou]r matches only: foobar, foober, foobir, foobor, foobur
+
+*		Zero or more of the LAST character # NOTE DIFFERENCE FROM wildcard * which is zero or more of any char
+			fo* matches f, fo, foo, fooo, 
+			[0-9][0-9]* matches 0, 1, 10, 00, 000042
 
