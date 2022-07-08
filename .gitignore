@@ -1,1 +1,5 @@
+# Mac shit
 .DS_Store
+
+# Microsoft word autosave files
+*~*
