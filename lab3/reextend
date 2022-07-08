@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ $# -ne 2 ] ;
+then
+	echo "Not enough arguments" ; exit
+fi
+
+ls | while read item ; do
+	if [ "$item" = *$1 ] ; then
+		c_old=${#1}
+		c_name=${#item}
+		let "c_diff= $c_name - $c_old"
+		echo "$item is iterated over for ext $1"
+		cut -c=[$c_diff-] $item
+		#mv "$item" 
+	fi
+done

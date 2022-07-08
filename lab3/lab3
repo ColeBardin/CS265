@@ -1,0 +1,27 @@
+Lab 3 by Cole Bardin
+	~kschmidt/public_html/CS265/Labs/Bash
+
+Q1: It echos 'true' since < operator for [[ ]] tests does not test the inequality of the value, but instead of the ASCII
+value of each character. So [[ 13 < 2 ]] is true since the ASCII value of 1 is less than that of 2.
+
+Q2: This echoed "All we have to decide is what to do with the chocolate that is given us..." since grep was able to find
+an instance of 'Chocolate' in mySettings
+
+Q3: since (( 13 / 5 )) returned 2 since / performs integer division and thus rounded the result down to 2
+
+Q4: the output from $? was zero since 27%2 is 1, so the return status of the command (( 27 % 2 == 1)) would be 0 (true)
+
+Q5: since we set x to 12 within ( ), this means the commands were ran within a subshell. and since we unset the x
+variable in the main shell, there is no valued there for x. the command to echo "5 %x 13" within the subshell was able
+to print '5 12 13' since x was locally defined. but calling that same command within the main shell just prints '5  13'
+since x is undefined.
+
+Q6: It printed 'Item' 'Another' and 'item' to the terminal each on their own line
+
+Q7: It printed the entire contents of the file, including the extra newline padding I put above and below the two lines
+of text. it also preserved the contents of each line instead of breaking it up by space like the last command.
+
+Q8: This printed the contents of blah just like the last command. but instead of specifying the filename in the
+firstline of the while loop, it was redirected at the end with the < operator.
+
+Q9:
