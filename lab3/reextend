@@ -1,17 +1,32 @@
 #!/bin/bash
 
+usage() {
+	echo "Usage: reextend oldExt newExt"
+}
+
 if [ $# -ne 2 ] ;
 then
-	echo "Not enough arguments" ; exit
+	echo "ERROR: Not enough arguments" ; usage ; exit
 fi
+
+itemsFound=0
 
 ls | while read item ; do
 	if [ "$item" = *$1 ] ; then
 		c_old=${#1}
 		c_name=${#item}
 		let "c_diff= $c_name - $c_old"
-		echo "$item is iterated over for ext $1"
-		cut -c=[$c_diff-] $item
-		#mv "$item" 
+		mv "$item" ${item:0:c_diff}$2
+		echo $item was renamed to ${item:0:c_diff}$2
 	fi
 done
+
+echo $itemsFound
+
+if (( $itemsFound == 0 )) ; then
+	echo "ERROR: No items found with extension $1"
+	exit
+else 
+	echo "Successfully renamed $itemsFound files"
+fi
+
