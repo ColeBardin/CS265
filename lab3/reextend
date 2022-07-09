@@ -45,4 +45,3 @@ else
 	echo "Successfully renamed $itemsFound files"
 	exit
 fi
-
