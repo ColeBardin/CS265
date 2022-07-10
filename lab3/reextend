@@ -1,47 +1,43 @@
 #!/bin/bash
 
 usage() {
-	echo "Usage: reextend oldExt newExt"
+	echo "Usage: ./reextend oldExt newExt"
 }
 
-if [ $# -lt 2 ] ; # Error handle not getting enough arguments
-then
+# Perform error handling on input parameters
+if [ $# -lt 2 ] ; then # Error handle not getting enough arguments
 	echo "ERROR: Not enough arguments" ; usage ; exit
-elif [ $# -gt 2 ] ; # Error handle getting too many arguments
-then
+elif [ $# -gt 2 ] ; then # Error handle getting too many arguments
 	echo "ERROR: Too many argument" ; usage ; exit
+elif [[ "$1" = "$2" ]] ; then
+	echo "ERROR: Please provide unique extension for conversion" ; usage ; exit
 fi
-
-echo param1: $1
-echo param2: $2
 
 # Total items counted
 itemsFound=0
+echo "REEXTEND: converting all files with '$1' extension to '$2'"
 
 # Iterate over each item from ls call
 while read item ; do
-	echo $item
 	# If the file extension matches the second command line argument
-	if [ "$item" = *"$1" ] ; then
+	if [[ "$item" = *$1 ]] ; then
 		# Increment the item counter
 		itemsFound=$((itemsFound+1))
 		# Calculate the length of filename without the old extension
 		let "c_diff= ${#item} - ${#1}"
 		# Rename the file to the new extension
-		mv "$item" ${item:0:c_diff}$2
+		mv "$item" "${item:0:c_diff}$2"
 		if [ $? -ne 0 ] ; then
 			echo "ERROR: mv command failed renaming $item" ; exit
 		fi
 		echo file $item was renamed to ${item:0:c_diff}$2
 	fi
-done <<<$(ls) # This syntax to run while loop within same shell as main program so global variables can be edited
+done <<<$(ls -1) # This syntax to run while loop within same shell as main program so global variables can be edited
 
 # On the case of no items were found
 if (( $itemsFound == 0 )) ; then
-	echo "ERROR: No items found with extension $1"
-	exit
+	echo "ERROR: No items found with extension $1" ; exit
 else 
 	# Output number of files successfuly operated on
 	echo "Successfully renamed $itemsFound files"
-	exit
 fi
