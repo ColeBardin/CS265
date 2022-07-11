@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "count.bash"
+echo "Filename Linecount WordCount:"
+echo
 # Iterate through each item in current directory
 ls | while read item ; do
 	# If the item is of type 'file'
