@@ -1,9 +1,68 @@
 #!/bin/bash
 
+usage() {
+	echo "Intended Usage: organiseMusic is designed to organize files of the format 'artist - song.mp3' into ./artist/song.mp3"
+}
+
+move_file() {
+	if [ $# -eq 3 ] ; then
+		song=${song::-4}_$3${song: -4}
+	fi
+	# If the current file already exists
+	if [ -d "$artist/$song" ] ; then
+		movefile "$1" "$2" $3
+	fi
+	mv "$1" "2"
+	if [ $? -ne 0 ] ; then
+		echo "ERROR: Failed move file to ./$2" ; exit
+	fi
+}
+
 renamed=0
 
+# Read through each file in the directory
 while read fullsong ; do
-	if [[ "$fullsong" = *-* ]] ; then
+	# If the filename matches the pattern of two words separated by a - and is a .mp3 file
+	if [[ "$fullsong" = *-*.mp3 ]] ; then
+		((renamed=renamed+1))
+		artist=""
+		song=""
+		switch=0
 		echo "Found song to rename: $fullsong"
+		# Iterate through each word in the filename to split it by the - char
+		for word in $fullsong ; do
+			# Switch which variable to append words to once hitting the -
+			if [[ "$word" == "-" ]] ; then
+				switch=1
+			# Build artist string
+			elif (( $switch == 0 )) ; then
+				artist+="$word "
+			# Build song string
+			else
+				song+="$word "
+			fi
+		done
+		# Remove last space char from both strings
+		artist=${artist::-1}
+		song=${song::-1}
+		# Check if directory doesn't already exists
+		if [ ! -d "./$artist" ] ; then
+			# If not, make it
+			mkdir "$artist"
+		fi
+		# Move song into new directory
+# TODO: Use move_file func
+		mv "$fullsong" "$artist/$song"
+		if [ $? -ne 0 ] ; then
+			echo "ERROR: Failed move file to ./$artist/$song" ; exit
+		fi
 	fi
 done <<<$(ls -1)
+
+# check for files renamed
+if (( renamed == 0 )) ; then
+	echo "ERROR: No files found to rename" ; usage ; exit
+else
+	echo "Successfully organized $renamed songs"
+fi
+
