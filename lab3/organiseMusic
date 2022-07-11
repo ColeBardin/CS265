@@ -4,24 +4,37 @@ usage() {
 	echo "Intended Usage: organiseMusic is designed to organize files of the format 'artist - song.mp3' into ./artist/song.mp3"
 }
 
+# Function to move a file to a new destination and create a unique filename by appending an integer if the file already
+# exists
+# Usage: move_file dest target.mp3 [ext#]
+# For this lab, this function assumes filename ends with .mp3
+# Optional ext# is used for recursively making a unique filename with an extending number
 move_file() {
+	if [ $# -lt 2 ] ; then
+		echo "ERROR: move_file() function used improperly" ; exit
+	fi
 	song=$2
 	ext=0
 	if [ $# -gt 2 ] ; then
-#TODO: Fix renaming to replace last number instead of appending more _# each iteration
-		song=${song::-4}_$3${song: -4}
+		new_song=${song::-4}_$3${song: -4}
 		ext=$3
+	else
+		new_song=$song
 	fi
 	# If the current file already exists
-	if [ -f "$song" ] ; then
+	if [ -f "$new_song" ] ; then
 		((ext=ext+1))
+		# Recurse with incremented extension integer
 		move_file "$1" "$song" $ext
 		return
 	fi
-	mv "$1" "$song"
+	# Attempt to move song to it's new directory
+	mv "$1" "$new_song"
+	# Error handle mv command call
 	if [ $? -ne 0 ] ; then
-		echo "ERROR: Failed move file to ./$2" ; exit
+		echo "ERROR: Failed move file to ./$new_song" ; exit
 	fi
+	echo "Created new file: $new_song"
 }
 
 renamed=0
@@ -34,7 +47,6 @@ while read fullsong ; do
 		artist=""
 		song=""
 		switch=0
-		echo "Found song to rename: $fullsong"
 		# Iterate through each word in the filename to split it by the - char
 		for word in $fullsong ; do
 			# Switch which variable to append words to once hitting the -
