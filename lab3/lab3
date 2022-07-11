@@ -24,4 +24,8 @@ of text. it also preserved the contents of each line instead of breaking it up b
 Q8: This printed the contents of blah just like the last command. but instead of specifying the filename in the
 firstline of the while loop, it was redirected at the end with the < operator.
 
-Q9:
+Q9: Done
+
+Q10: Done
+
+Q11: Done
