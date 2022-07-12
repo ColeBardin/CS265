@@ -2,8 +2,8 @@
 
 usage() {
 	echo "Usage: ./reextend oldExt newExt"
-	echo "Brief: Renames all files that end with oldExt to end with newExt"
-	echo "For example: \`./reextend pdf jpg\` renames all pdf files ot be jpg files (IMG203.pdf -> IMG203.jpg "
+	echo "Brief: Renames all files in current direcotry that end with oldExt to end with newExt"
+	echo "For example \`./reextend pdf jpg\` renames all pdf files ot be jpg files (IMG203.pdf -> IMG203.jpg "
 }
 
 # Perform error handling on input parameters
