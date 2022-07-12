@@ -584,6 +584,8 @@ sequence of special characters that describe a pattern
 describes a search pattern, ie eaach RE matches a set of strings
 look like wildcards but are slightly different
 
+Used to validate input data to fit into a given pattern
+
 shells use wildcards but tools use regular expressions 
 
 regular expressions:
@@ -605,8 +607,85 @@ Special character:
 
 [..]	Matches any listed character
 			foob[aeiou]r matches only: foobar, foober, foobir, foobor, foobur
+			# MATCHES items in order of ascii values
 
 *		Zero or more of the LAST character # NOTE DIFFERENCE FROM wildcard * which is zero or more of any char
 			fo* matches f, fo, foo, fooo, 
 			[0-9][0-9]* matches 0, 1, 10, 00, 000042
+
+-		Special character inside bracket to represent range # Only works when NOT FIRST CHAR
+			[0-9] does NOT match for '-'
+			[-09] DOES match for '-'
+
+^		Negation of argumens within brackets # Only works as FIRST CHAR
+			[^abc] will match for strings WITHOUT a b or c
+			[ab^c] will match for a b ^ or c
+			
+
+# POSIX Bracketed Expressions
+must be placed in brackets as well, double bracketed
+`[[:lower:]]`
+
+[:alnum:] [:alpha:] [:ascii:] [:blank:]
+[:cntrl:] [:digit:] [:graph:] [:lower:]
+[:print:] [:punct:] [:space:] [:upper:]
+[:word:] [:xdigit:]
+
+
+# ^$ beginning and end of line
+
+^foobar matches any lines that start with foobar
+
+foobar$ matches any lines that end with foobar
+
+
+
+# grep fgrep egrep Commands
+
+grep [options] regex [file ...]
+	grep hello *.txt # NOTE: * is WILDCARD because it is shell wildcard expansion NOT REGEX
+	# Search term is a REGEX however
+worthy options to mention:
+-i case insensitive search
+-v inver search, only shot NOT matching lines
+-l outputs filenames with matching lines
+-c outputs only number of lines that match
+
+interesting uses of grep
+grep -v '^#'	removes all comment lines beginning with '#'
+
+grep -v '^[ ]*$' 	removes all lines which are empty or contain only spaces
+
+
+# FGREP - fixed string grep (faster than regular grep if string literal is known)
+fgrep 'hello.*goodbye'
+
+
+# EGREP - extended grep (extended regular expressions)
+grep only does basic regex
+fgrep allows use of metachars for more elaborate patterns
+
+?		matches last item 0 or 1 times
++		matches last item 1 or more times
+{n}		matches the last item exactly n times
+{n,}	matches last item n or MORE times
+{,n}	matches last item at MOST n times
+{n,m}	matches last item at LEAST n times but NO MORE than m times
+|		logical or
+()		used for grouping and to force expressions
+\m		back reference; matches string previously matched by mth paranthesized subexpression (m is single digit)
+\<\>	beginning and end of word anchors
+\c		turn off special meaning of char c
+
+examples:
+[1-9][1-9]? matches 1 to 99
+colou?r matches color and colour
+0|[1-9][1-9]? matches all numbers 0 to 99 # since | is shell metachar, enclose REGEX in quotes to secure it
+
+# Precedence rules
+Repetition takes precedent over concatenation
+whole expressions can be enclosed in paranthesis to force it
+
+
+
 
