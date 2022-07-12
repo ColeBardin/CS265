@@ -1,3 +1,31 @@
 #!/bin/bash
 
+search_dir() {
+	if [ $# -ne 1 ] ; then
+		echo "ERROR: search_dir used improperly and not povided a directory" ; exit
+	fi
+	current_dir=$1
+	echo SEARCHING $current_dir
+	echo $(ls $current_dir -1)
+	while read file ; do
+		if [ -d "$current_dir/$file" ] ; then
+			echo NEXT DIR: $current_dir/$file
+			if [ "$(ls -A "$current_dir/$file")" ] ; then
+				search_dir "$current_dir/$file"
+			else
+				continue
+			fi
+		fi
+	done <<<$(ls -1 $current_dir)
+}
 
+dir_name=".KS_Dir"
+bear=0
+dromedary=0
+aardvark=0
+genet=0
+lemur=0
+
+found_metrics=0
+
+search_dir "."
