@@ -1,7 +1,8 @@
 #!/bin/bash
 
 usage() {
-	echo "Intended Usage: organiseMusic is designed to organize files of the format 'artist - song.mp3' into ./artist/song.mp3"
+	echo "Usage: organiseMusic" 
+	echo "Brief: This program is designed to organize files in current directory from the format 'artist - song.mp3' into ./artist/song.mp3"
 }
 
 # Function to move a file to a new destination and create a unique filename by appending an integer if the file already
