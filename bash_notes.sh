@@ -679,8 +679,17 @@ fgrep allows use of metachars for more elaborate patterns
 
 examples:
 [1-9][1-9]? matches 1 to 99
+
 colou?r matches color and colour
+
 0|[1-9][1-9]? matches all numbers 0 to 99 # since | is shell metachar, enclose REGEX in quotes to secure it
+
+(a|b)c\.(log|txt) matches anything starting with a or b, followed by c and ends with .log or .txt
+(a|b) is \1, (log|txt) is \2
+
+\<[Yy]ou\> matches You or you only
+
+"^\(*[[:digit:]]{3}\)*( |-)*[[:digit:]]{3}( |-)*[[:digit:]]{4}$" matches phone numbers
 
 # Precedence rules
 Repetition takes precedent over concatenation
@@ -688,4 +697,24 @@ whole expressions can be enclosed in paranthesis to force it
 
 
 
+# Stream Editor (sed)
+sed 's/word1/word2/g' input.file > output.file
+replaces every instance of word1 with word2 in input.file and puts output into output.file
 
+
+
+
+# AWK Programming Language
+good for:
+	- simple mechanical data manipulations
+	- calculations
+	- change format
+	- validity checks
+	- printing reports
+	- add numbers
+	- find items with properties
+
+mawk version is on 
+
+Reads input file one record at a time
+splits line by words called 'fields'
