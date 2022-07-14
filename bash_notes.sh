@@ -676,6 +676,7 @@ fgrep allows use of metachars for more elaborate patterns
 \m		back reference; matches string previously matched by mth paranthesized subexpression (m is single digit)
 \<\>	beginning and end of word anchors
 \c		turn off special meaning of char c
+.		any character
 
 examples:
 [1-9][1-9]? matches 1 to 99
@@ -704,7 +705,7 @@ replaces every instance of word1 with word2 in input.file and puts output into o
 
 
 
-# AWK Programming Language
+# AWK Programming Language for Text Processing
 good for:
 	- simple mechanical data manipulations
 	- calculations
@@ -716,5 +717,197 @@ good for:
 
 mawk version is on 
 
-Reads input file one record at a time
+Reads input file one line at a time called 'records'
 splits line by words called 'fields'
+
+pattern { action } 
+
+for example: emp.data contains
+beth	4.00	0
+dan		3.75	0
+kathy	4.00	10
+mark	5.00	20
+marky	5.50	22
+susie	4.25	18
+
+awk '$3 > 0 { print $1, $2 * $3 }' emp.data
+$1 is name
+$2 is payrate
+$3 is hours
+pattern: any third field greater than 0
+action: print name and amount earned (pay rate times hours)
+
+awk '$3 == 0 { print $1 }' emp.data
+
+No need for action or pattern
+$3 = 0 # Default is to just print record (line)
+{ print $1 } # Performs action on each line
+
+
+# Begin and End
+BEGIN { begin-action }
+pattern1 { action1 }
+pattern2 { action2 }
+...
+END { end-action }
+
+Begin-actions will be done BEFORE searching file
+End-actions will be done AFTER searching the file
+
+
+awk [optioms] -f scriptfile var=value file(s)
+
+# Useful options:
+-F fs		sets the field operator to be a given input (default is whitespace)
+-v var		allows value to be assigned to variable for script
+
+# Build Variables in AWK
+fields are split into $m where m is index
+$0		entire line
+FS		field separator
+OFS		deliniant fields when you output
+NF		number of fields in current records
+NR		number of records
+FNR		number of current record, line#
+RS		record separator
+ORS		output record separator
+FILENAME	current filename being read
+# Note no dollar signs for these values
+$NF is last field
+
+
+# Patterns
+Using REGEX in patterns:
+$1 ~ /re/
+$1 !~ /re/
+
+
+# C-like Scripting Language
+only two types: floats and strings
+variables are dynamically typed, no declarations
+statements are separated by newline or ;
+arrays are associative (can have strings as indices)
+# comment lines
+
+{
+for( i=1; i<=NF; ++i )
+{
+print i, $i # enumerate, print each fule in the record
+}
+}
+
+# Numbers:
+% retuns float remainders
+9.5 % 2.0 = 1.5
+10.0 % 2.0 = 0.0
+
+can be cast to int with int()
+^ for exponentiation
+funcs for bitshifts: lshift, rshift xor and or compl
+
+
+# String concatenation
+awk 'BEGIN { print "hello" "world" }'
+	helloworld
+awk 'BEGIN { print -12 " " -24 }'
+	-12-24 
+awk 'BEGIN { print -12 " " (-24) }'
+	-12 -24
+
+# String library functions
+length, tolower, toupper
+index
+substr
+sub, gsub, gensub # can use REGEX for these substitutions!
+split, patsplit
+sprintf
+strtonum
+
+
+# Arrays
+keys can be number of strings
+vectors can be spares
+indices can be negative
+BEGIN {
+	a[5] = "spiros"
+	a[12] = 13
+	a[13] = "Ski"
+	a[-77] = "I'm here too"
+}
+
+delete a[3]
+
+# Multidimensional
+a[i,j] = i*j
+
+# Execute system commands:
+system(cmd)
+
+# User defined functions:
+function func_name([param_list]) {
+	body
+}
+
+function delarray(a, i) # space in front of i makes it local to func
+{
+	for (i in a)
+		delete a[i]
+}
+
+
+
+
+
+
+
+# The `SED` editor
+Stream EDitor
+
+similar to sed as in pattern-action oriented
+differences:
+	sed processes lines
+	awk processes lines AND fields
+
+AWK for calculations and manipulations
+SED for purely text editing
+
+usage: sed command input
+
+sed 's/this/that/' input.txt > output.txt
+-i option to edit file in place
+sed -i 's/this/that' input.txt
+
+# Commands:
+s	substitute
+d	delete
+p	print
+c	change
+a	append
+
+
+s/old/new only replaces first instance per line
+s/old/new/g for global and replace ALL occurances
+
+# Delimeter
+default /
+to specify new delimeter:
+s:/user/bin/local:/common/bin:g
+
+# Matched string:
+when the matching string is unknown
+sed 's/[a-z]*/(&)/'
+REGEX patterns can be used for sed
+& is matched string
+
+# Syntax of SED commands:
+[address [,address ]][!]command [arguments]
+
+sed '3 s/A/a/' on line number
+sed '1,100 s/A/a/' on range of lines
+sed '/^#/ s/A/a/' on all lines with pattern
+
+
+# Can be used to replace grep
+sed -n '/PATTERN/ p' file
+is same as
+grep PATTERN file
