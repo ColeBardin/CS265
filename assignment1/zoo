@@ -4,10 +4,10 @@ pull_metrics() {
 	if [ $# -ne 1 ] ; then
 		echo "ERROR: pull_metrics used improperly used and not provided a filepath" ; exit
 	fi
-#	echo pulling $target
-	for line in $(cat $1) ; do
-		echo line
-	done
+	local pathname=$1
+	if [ $target != "All" ] ; then
+		awk -v animal="$target" '$1 == animal {print $1, $2}' $pathname
+	fi
 	return
 }
 
@@ -15,17 +15,20 @@ search_dir() {
 	if [ $# -ne 1 ] ; then
 		echo "ERROR: search_dir used improperly and not povided a directory" ; exit
 	fi
-	current_dir=$1
+	local current_dir=$1
 	for item in $(ls -1A $current_dir) ; do
-		if [ -d "$current_dir/$item" ] ; then
-			if [ "$(ls -A "$current_dir/$item")" ] ; then
-				( search_dir "$current_dir/$item" ) 
+		local new_dir="$current_dir/$item"
+		if [ -d "$new_dir" ] ; then
+			if [ "$(ls -A "$new_dir")" ] ; then
+				search_dir "$new_dir" 
 			fi
 		fi
 		if [ "$item" = "$metric_name" ] ; then
-			echo found metric file: "$current_dir/$item"
-			pull_metrics "$current_dir/$item"
+			((found_metrics+=1))
+			echo found metric file: "$new_dir"
+			pull_metrics "$new_dir"
 		fi
+		item=''
 	done
 }
 
@@ -39,13 +42,19 @@ target="All"
 
 found_metrics=0
 
-[ $# -eq 1 ] && target=$1
+if [ $# -eq 1 ] ; then
+	target=$1
+fi
+echo $target
 search_dir "."
 
 
-if (( $found_metrics != 0 )) ; then
+if (( $found_metrics == 0 )) ; then
 	echo "ERROR: No metrics files found with name $metric_name" ; exit
 else
 	echo "Found $found_metrics metrics files with name $metric_name"
+	if [ "$target" != "All" ] ; then
+		echo Total $target
+	fi
 fi
 
