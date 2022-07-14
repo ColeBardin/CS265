@@ -1,31 +1,51 @@
 #!/bin/bash
 
+pull_metrics() {
+	if [ $# -ne 1 ] ; then
+		echo "ERROR: pull_metrics used improperly used and not provided a filepath" ; exit
+	fi
+#	echo pulling $target
+	for line in $(cat $1) ; do
+		echo line
+	done
+	return
+}
+
 search_dir() {
 	if [ $# -ne 1 ] ; then
 		echo "ERROR: search_dir used improperly and not povided a directory" ; exit
 	fi
 	current_dir=$1
-	echo SEARCHING $current_dir
-	echo $(ls $current_dir -1)
-	while read file ; do
-		if [ -d "$current_dir/$file" ] ; then
-			echo NEXT DIR: $current_dir/$file
-			if [ "$(ls -A "$current_dir/$file")" ] ; then
-				search_dir "$current_dir/$file"
-			else
-				continue
+	for item in $(ls -1A $current_dir) ; do
+		if [ -d "$current_dir/$item" ] ; then
+			if [ "$(ls -A "$current_dir/$item")" ] ; then
+				( search_dir "$current_dir/$item" ) 
 			fi
 		fi
-	done <<<$(ls -1 $current_dir)
+		if [ "$item" = "$metric_name" ] ; then
+			echo found metric file: "$current_dir/$item"
+			pull_metrics "$current_dir/$item"
+		fi
+	done
 }
 
-dir_name=".KS_Dir"
+metric_name=".KS_Dir"
 bear=0
 dromedary=0
 aardvark=0
 genet=0
 lemur=0
+target="All"
 
 found_metrics=0
 
+[ $# -eq 1 ] && target=$1
 search_dir "."
+
+
+if (( $found_metrics != 0 )) ; then
+	echo "ERROR: No metrics files found with name $metric_name" ; exit
+else
+	echo "Found $found_metrics metrics files with name $metric_name"
+fi
+
