@@ -1,18 +1,22 @@
 #!/bin/bash
-# TODO: Comment all code
 
 usage() {
 	echo "Usage: zoo [-f filename] [start_directory] measurement" ; exit
 }
 
 pull_metrics() {
+	# Check if function call was provided 1 argument: file to search
 	if [ $# -ne 1 ] ; then
 		echo "ERROR: pull_metrics used improperly used and not provided a filepath" ; exit
 	fi
+	# Create local variables for this call
 	local pathname=$1
 	local count=0
+	# Use AWK to parse line out with target animal as first field
 	count=$(awk -v animal="$target" '$1==animal {print $2}' $pathname)
+	# If a line with the animal was found (something stored in count var
 	if [[ $count != "" ]] ; then
+		# Increment the global counter for the desired anumal
 		case $target in
 			"aardvark" ) (( aardvark+=$count )) ;;
 			"bear" ) (( bear+=$count )) ;;
@@ -25,7 +29,7 @@ pull_metrics() {
 }
 
 search_dir() {
-	# Check if search_dir was provided 1 argument: the directory to search
+	# Check if function call was provided 1 argument: the directory to search
 	if [ $# -ne 1 ] ; then
 		echo "ERROR: search_dir used improperly and not povided a directory" ; exit
 	fi
@@ -33,18 +37,22 @@ search_dir() {
 	local current_dir=$1
 	# Iterate over each file in the current directory
 	for file in $(ls -1A $current_dir) ; do
+		# Make local variable for the path of new file
 		local new_dir="$current_dir/$file"
+		# Check that the file is a directory
 		if [ -d "$new_dir" ] ; then
+			# If the directory is not empty
 			if [ "$(ls -A "$new_dir")" ] ; then
+				# Search the directory
 				search_dir "$new_dir" 
 			fi
-		fi
-		if [ "$file" = "$metric_name" ] ; then
+		# If its not a directory, check if its filename macthes the metric name
+		elif [ "$file" = "$metric_name" ] ; then
+			# Increment the counter
 			((found_metrics+=1))
-			#echo found metric file: "$new_dir"
+			# Pull the metrics from the file
 			pull_metrics "$new_dir"
 		fi
-		file=''
 	done
 }
 
@@ -87,10 +95,6 @@ case $# in
 	* ) # Any other number of arguments passed, error
 		echo "ERROR: Too many arguments provided" ; usage ;;
 esac
-
-#echo Start Dir: $start_dir
-#echo Target: $target
-#echo Metric Name: $metric_name
 
 # Validate inputs:
 # Starting dir is an actual directory
