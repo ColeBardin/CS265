@@ -99,7 +99,9 @@ esac
 # Validate inputs:
 # Starting dir is an actual directory
 [[ ! -d $start_dir ]] && (echo "ERROR: Given starting directory '$start_dir' is not a valid directory" ; usage)
-# TODO: Check for correct permissions on dir
+
+# Check that directory is readable
+[[ ! -r $start_dir ]] && (echo "ERROR: Given starting directory '$start_dir' is not readable" ; usage)
 
 # Target is in list of given animals
 case $target in
