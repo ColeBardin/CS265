@@ -1,60 +1,128 @@
 #!/bin/bash
+# TODO: Comment all code
+
+usage() {
+	echo "Usage: zoo [-f filename] [start_directory] measurement" ; exit
+}
 
 pull_metrics() {
 	if [ $# -ne 1 ] ; then
 		echo "ERROR: pull_metrics used improperly used and not provided a filepath" ; exit
 	fi
 	local pathname=$1
-	if [ $target != "All" ] ; then
-		awk -v animal="$target" '$1 == animal {print $1, $2}' $pathname
+	local count=0
+	count=$(awk -v animal="$target" '$1==animal {print $2}' $pathname)
+	if [[ $count != "" ]] ; then
+		case $target in
+			"aardvark" ) (( aardvark+=$count )) ;;
+			"bear" ) (( bear+=$count )) ;;
+			"dromedary" ) (( dromedary+=$count )) ;;
+			"genet" ) (( genet+=$count )) ;;
+			"lemur" ) (( lemur+=$count )) ;;
+		esac
 	fi
 	return
 }
 
 search_dir() {
+	# Check if search_dir was provided 1 argument: the directory to search
 	if [ $# -ne 1 ] ; then
 		echo "ERROR: search_dir used improperly and not povided a directory" ; exit
 	fi
+	# Save directory to search to local argument
 	local current_dir=$1
-	for item in $(ls -1A $current_dir) ; do
-		local new_dir="$current_dir/$item"
+	# Iterate over each file in the current directory
+	for file in $(ls -1A $current_dir) ; do
+		local new_dir="$current_dir/$file"
 		if [ -d "$new_dir" ] ; then
 			if [ "$(ls -A "$new_dir")" ] ; then
 				search_dir "$new_dir" 
 			fi
 		fi
-		if [ "$item" = "$metric_name" ] ; then
+		if [ "$file" = "$metric_name" ] ; then
 			((found_metrics+=1))
-			echo found metric file: "$new_dir"
+			#echo found metric file: "$new_dir"
 			pull_metrics "$new_dir"
 		fi
-		item=''
+		file=''
 	done
 }
 
+# Define global variables with preset values
+start_dir="."
 metric_name=".KS_Dir"
 bear=0
 dromedary=0
 aardvark=0
 genet=0
 lemur=0
-target="All"
-
+target="NONE"
 found_metrics=0
 
-if [ $# -eq 1 ] ; then
-	target=$1
-fi
-echo $target
-search_dir "."
+# Handle command line arguments
+case $# in 
+	0 ) # No arguments, error 
+		echo "ERROR: No measurement provided" ; usage ;; 
+	1 ) # One argument, use it for measurement
+		target="$1" ;;
+	2 ) # Two arguments, first is starting dir, second is measurement
+		start_dir="$1" ; target="$2" ;;
+	3 ) # Three arguments, if first is -f flag, then second is metric name, third is measurement
+		if [ "$1" == "-f" ] ; then
+			metric_name="$2" ; target="$3" 
+		else
+			echo "ERROR: Invalid arguments passed" ; usage
+		fi
+		;;
+	4 ) # Four arguments, if 1st or 2nd argument following -f is metric, last is measurement, remaining is dir
+		if [ "$1" == "-f" ] ; then
+			metric_name="$2" ; start_dir="$3" ; target="$4"
+		elif [ "$2" == "-f" ] ; then
+			metric_name="$3" ; start_dir="$1" ; target="$4"
+		# If -f flag is NOT first or second argument, error
+		else
+			echo "ERROR: Invalid arguments passed" ; usage
+		fi 
+		;;
+	* ) # Any other number of arguments passed, error
+		echo "ERROR: Too many arguments provided" ; usage ;;
+esac
 
+#echo Start Dir: $start_dir
+#echo Target: $target
+#echo Metric Name: $metric_name
 
+# Validate inputs:
+# Starting dir is an actual directory
+[[ ! -d $start_dir ]] && (echo "ERROR: Given starting directory '$start_dir' is not a valid directory" ; usage)
+# TODO: Check for correct permissions on dir
+
+# Target is in list of given animals
+case $target in
+	"aardvark" ) ;;
+	"bear" ) ;;
+	"dromedary" ) ;;
+	"genet" ) ;;
+	"lemur" ) ;;
+	* ) # If provided measurement is not in list, error
+		echo "ERROR: Invalid measurement animal '$target' provided" ; usage ;;
+esac
+
+# Begin searching directory
+search_dir "$start_dir"
+
+# Check for found metrics
 if (( $found_metrics == 0 )) ; then
 	echo "ERROR: No metrics files found with name $metric_name" ; exit
 else
-	echo "Found $found_metrics metrics files with name $metric_name"
-	if [ "$target" != "All" ] ; then
-		echo Total $target
-	fi
+	#echo "Found $found_metrics metrics files with name $metric_name"
+	# Output the results from the search
+	echo -n "$target: "
+	case $target in
+		"aardvark" ) echo $aardvark ;;
+		"bear" ) echo $bear ;;
+		"dromedary" ) echo $dromedary ;;
+		"genet" ) echo $genet ;;
+		"lemur" ) echo $lemur ;;
+	esac
 fi
-
