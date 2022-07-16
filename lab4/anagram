@@ -1,3 +1,17 @@
 #!/bin/bash
 
+# TODO: Check for files
 
+# TODO: compile sign.c
+
+# TODO: check access to dictionary file: /usr/share/dict/words
+
+# TODO: Sign words
+
+# TODO: squash words
+
+# TODO: use custom AWK program to count anagrams
+
+# TODO: Sort output by number
+
+# TODO: displau 8 largest anagrams
