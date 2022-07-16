@@ -3,3 +3,52 @@ Lab 4 By Cole Bardin
 Section 1: Regular Expressions
 ~kschmidt/public_html/CS265/Labs/Regexp
 
+1.1: egrep 'the' bright_side_of_life
+
+1.2: egrep '\<the\>' bright_side_of_life
+
+1.3: egrep '\<Just\>' bright_side_of_life
+
+1.4: egrep '\<[Jj]ust\>' bright_side_of_life
+
+1.5: egrep '^\<[Jj]ust\>' bright_side_of_life
+
+1.6: egrep '[mb]ad' bright_side_of_life
+
+1.7: egrep '(d|br)eath' bright_side_of_life
+
+1.8: egrep 'you[,.]?$' bright_side_of_life
+
+1.9: egrep '^[ \t\n]' bright_side_of_life
+
+1.10: egrep '^[ \n]*$' bright_side_of_life
+
+1.10: egrep '^[[:space:]]*$' bright_side_of_life
+
+1.11: 13 blank lines in bright_side_of_life
+
+
+Section 2: AWK
+/home/kschmidt/public_html/CS265/Labs/Anagram
+'^[[:space:]]*$' bright_side_of_life
+
+1.11: 13 blank lines in bright_side_of_life
+
+
+Section 2: AWK
+/home/kschmidt/public_html/CS265/Labs/Anagram
+'^[[:space:]]*$' bright_side_of_life
+
+1.11: 13 blank lines in bright_side_of_life
+
+
+Section 2: AWK
+/home/kschmidt/public_html/CS265/Labs/Anagram
+'^[[:space:]]*$' bright_side_of_life
+
+1.11: 13 blank lines in bright_side_of_life
+
+
+Section 2: AWK
+/home/kschmidt/public_html/CS265/Labs/Anagram
+
