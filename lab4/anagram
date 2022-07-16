@@ -1,6 +1,16 @@
 #!/bin/bash
 
-# TODO: Check for files
+# Check for sign.c
+[[ ! -f "sign.c" ]] && { echo "ERROR: sign.c file not found" ; exit ; }
+
+# Check if sign.c is readable
+[[ ! -r "sign.c" ]] && { echo "ERROR: sign.c file not readable" ; exit ; }
+
+# Check for squash.awk
+[[ ! -f "squash.awk" ]] && { echo "ERROR: squash.awk file not found" ; exit ; }
+
+# Check if squash.awk is readable
+[[ ! -r "squash.awk" ]] && { echo "ERROR: squash.awk file not readable" ; exit ; }
 
 # TODO: compile sign.c
 
