@@ -17,15 +17,12 @@ gcc -o sign sign.c
 # Validate that sign executable is a valid file
 [[ ! -f "sign" ]] && { echo "ERROR: cannot find compiled sign.c executable" ; exit ; }
 
-# TODO: check access to dictionary file: /usr/share/dict/words
+# Check if word list is accessible
 [[ ! -r "/usr/share/dict/words" ]] && { echo "ERROR: cannot read '/usr/share/dict/words' word list" ; exit ; }
 
 # TODO: Sign words
-
 # TODO: squash words
-
 # TODO: use custom AWK program to count anagrams
-
 # TODO: Sort output by number
-
 # TODO: displau 8 largest anagrams
+./sign < /usr/share/dict/words | sort | awk -f squash.awk | awk '{ print NF " " $0 }' | sort -nr | head -n 8
