@@ -18,6 +18,7 @@ gcc -o sign sign.c
 [[ ! -f "sign" ]] && { echo "ERROR: cannot find compiled sign.c executable" ; exit ; }
 
 # TODO: check access to dictionary file: /usr/share/dict/words
+[[ ! -r "/usr/share/dict/words" ]] && { echo "ERROR: cannot read '/usr/share/dict/words' word list" ; exit ; }
 
 # TODO: Sign words
 
