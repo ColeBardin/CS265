@@ -20,5 +20,5 @@ gcc -o sign sign.c
 # Check if word list is accessible
 [[ ! -r "/usr/share/dict/words" ]] && { echo "ERROR: cannot read '/usr/share/dict/words' word list" ; exit ; }
 
-# Sign words > sort by signed rep > squash words > count anagrams > sort by number of anagrams > output top 8
-( ./sign < /usr/share/dict/words ) | sort | awk -f squash.awk | awk '{ print NF " " $0 }' | sort -nr | head -n 8
+# Sign words > sort signed rep > squash words > count anagrams > sort by number of anagrams > output top 8
+./sign < /usr/share/dict/words | sort | awk -f squash.awk | awk '{ print NF " " $0 }' | sort -nr | head -n 8
