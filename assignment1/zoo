@@ -101,7 +101,7 @@ esac
 [[ ! -d $start_dir ]] && { echo "ERROR: Given starting directory '$start_dir' is not a valid directory" ; usage ; }
 
 # Check that directory is readable
-[[ ! -r $start_dir ]] && { echo "ERROR: Given starting directory '$start_dir' is not readable" ; usage ; }
+[[ ! -r $start_dir ]] && { echo "ERROR: Given starting directory '$start_dir' is not readable. Check permissions" ; usage ; }
 
 # Target is in list of given animals
 case $target in
