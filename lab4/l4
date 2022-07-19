@@ -30,25 +30,5 @@ Section 1: Regular Expressions
 
 Section 2: AWK
 /home/kschmidt/public_html/CS265/Labs/Anagram
-'^[[:space:]]*$' bright_side_of_life
 
-1.11: 13 blank lines in bright_side_of_life
-
-
-Section 2: AWK
-/home/kschmidt/public_html/CS265/Labs/Anagram
-'^[[:space:]]*$' bright_side_of_life
-
-1.11: 13 blank lines in bright_side_of_life
-
-
-Section 2: AWK
-/home/kschmidt/public_html/CS265/Labs/Anagram
-'^[[:space:]]*$' bright_side_of_life
-
-1.11: 13 blank lines in bright_side_of_life
-
-
-Section 2: AWK
-/home/kschmidt/public_html/CS265/Labs/Anagram
-
+File saved as: 'anagram'
