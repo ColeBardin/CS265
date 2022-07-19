@@ -48,4 +48,11 @@ NOTE: No flag specification for starting directory argument
 
 Input directories are always validated for existance, filetype d and readability
 
+## Errors
 
+The program will error for various reasons:
+- No metric files found
+- Starting directory does not exist/is not readable
+- No arguments/more than 4 arguments passed
+- Measurement not in specified list
+- Invalid arguments/improper flag position
