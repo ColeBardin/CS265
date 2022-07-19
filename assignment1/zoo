@@ -53,6 +53,8 @@ search_dir() {
 				((found_metrics+=1))
 				# Pull the metrics from the file
 				pull_metrics "$new_dir"
+			else
+				echo "WARNING: Permission denied for '$new_dir', skipping file"
 			fi
 		fi
 	done
