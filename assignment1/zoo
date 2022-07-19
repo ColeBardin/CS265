@@ -105,7 +105,7 @@ esac
 [[ ! -d "$start_dir" ]] && { echo "ERROR: Given starting directory '$start_dir' is not a valid directory" ; usage ; }
 
 # Check that directory is readable
-[[ ! -r "$start_dir" ]] && { echo "ERROR: Given starting directory '$start_dir' is not readable. Check permissions" ; usage ; }
+[[ ! -r "$start_dir" ]] && { echo "ERROR: Given starting directory '$start_dir' is not readable" ; usage ; }
 
 # Convert input target to all lowercase
 target=$(echo "$target" | tr '[:upper:]' '[:lower:]')
