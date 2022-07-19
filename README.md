@@ -59,7 +59,7 @@ Checks for necessary programs and files: `sign.c`, `squash.awk` and dict file `/
 Compile `sign.c` with `gcc -o sign sign.c` and checks for valid executable
 
 After all file and requirement validation, order of operations is:
-- Uses `sign` program to sign all words from `/usr/share/dict/words`
+- Signs all words from `/usr/share/dict/words` with `sign`
 - Sorts signed words into alphabetical order
 - Uses `squash.awk` to compile all adjacent anagrams
 - Enumerates the number of anagrams for each word with inline AWK program
