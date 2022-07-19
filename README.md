@@ -56,9 +56,15 @@ Usage: `./anagram`
 
 Checks for necessary programs and files: `sign.c`, `squash.awk` and dict file `/usr/share/dict/words`
 
-No need to compile `sign.c`, program does that automatically
+Compile `sign.c` with `gcc -o sign sign.c` and checks for valid executable
 
-Program signs the words from wordlist, squashes the anagrams, counts anagrams and returns 8 largest
+After all file and requirement validation, order of operations is:
+- Uses `sign` program to sign all words from `/usr/share/dict/words`
+- Sorts signed words into alphabetical order
+- Uses `squash.awk` to compile all adjacent anagrams
+- Enumerates the number of anagrams for each word with inline AWK program
+- Sorts anagram list by count
+- Displays 8 anagrams with most count
 
 ### sign.c
 
