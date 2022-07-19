@@ -36,6 +36,8 @@ NOTE: -f flag MUST be either 2nd or 3rd argument and the expected filename will 
 
 Note order when specifying metric filename AND starting directory
 
+If metric file is found but not readable, program outputs warning message and skips the file
+
 ### Starting directory
 
 By default, the program begins searching from the current directory `.`
