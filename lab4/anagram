@@ -16,6 +16,8 @@ gcc -o sign sign.c
 [[ $? -ne 0 ]] && { echo "ERROR: gcc failed to compile sign.c" ; exit ; }
 # Validate that sign executable is a valid file
 [[ ! -f "sign" ]] && { echo "ERROR: cannot find compiled sign.c executable" ; exit ; }
+# Add executable persmissions if not present
+[[ ! -x "sign" ]] && chmod +x sign
 
 # Check if word list is accessible
 [[ ! -r "/usr/share/dict/words" ]] && { echo "ERROR: cannot read '/usr/share/dict/words' word list" ; exit ; }
