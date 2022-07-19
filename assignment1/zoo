@@ -48,10 +48,12 @@ search_dir() {
 			fi
 		# If its not a directory, check if its filename macthes the metric name
 		elif [ "$file" = "$metric_name" ] ; then
-			# Increment the counter
-			((found_metrics+=1))
-			# Pull the metrics from the file
-			pull_metrics "$new_dir"
+			if [ -r "$new_dir" ] ; then
+				# Increment the counter
+				((found_metrics+=1))
+				# Pull the metrics from the file
+				pull_metrics "$new_dir"
+			fi
 		fi
 	done
 }
@@ -98,10 +100,10 @@ esac
 
 # Validate inputs:
 # Starting dir is an actual directory
-[[ ! -d $start_dir ]] && { echo "ERROR: Given starting directory '$start_dir' is not a valid directory" ; usage ; }
+[[ ! -d "$start_dir" ]] && { echo "ERROR: Given starting directory '$start_dir' is not a valid directory" ; usage ; }
 
 # Check that directory is readable
-[[ ! -r $start_dir ]] && { echo "ERROR: Given starting directory '$start_dir' is not readable. Check permissions" ; usage ; }
+[[ ! -r "$start_dir" ]] && { echo "ERROR: Given starting directory '$start_dir' is not readable. Check permissions" ; usage ; }
 
 # Convert input target to all lowercase
 target=$(echo "$target" | tr '[:upper:]' '[:lower:]')
