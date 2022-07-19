@@ -13,7 +13,7 @@ pull_metrics() {
 	local pathname=$1
 	local count=0
 	# Use AWK to parse line out with target animal as first field
-	count=$(awk -v animal="$target" 'BEGIN{c=0} $1==animal {n += $2} END{print n}' $pathname)
+	count=$(awk -v animal="$target" 'BEGIN{n=0} $1==animal {n += $2} END{print n}' $pathname)
 	# If a line with the animal was found (something stored in count var
 	if [[ $count != "" ]] ; then
 		# Increment the global counter for the desired anumal
