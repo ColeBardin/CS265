@@ -29,4 +29,4 @@ Q5:
 	double y = 0.600000
 	since 45.6 is interpreted as int 45 and float .6 with no whitespace, disregarding 789 since it matched its 3 vars
 
-Q6:
+Q6: Done. file is called ipay.c
