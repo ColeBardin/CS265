@@ -1,7 +1,10 @@
 Lab 5 by Cole Bardin
 ~kschmidt/public_html/CS265/Labs/C
 
-Q1:
+Q1: uninit.c creates both local and global float and int vars, but does not assign them a value. then it prints out the
+values of the variables. I did not know what to expect since I had never played around with uninitialized variables, but
+I assumed they would default to whatever happened to be stored there. With gcc, only the local int had a nonzero value,
+but with tcc all values were initialized to 0. By my guess, it seems to be a feature of tcc to do that.
 
 Q2:
 
