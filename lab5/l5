@@ -8,7 +8,12 @@ but with tcc all values were initialized to 0. By my guess, it seems to be a fea
 
 Q2: Done. file is bills.c
 
-Q3:
+Q3: with i=5, j=3:
+i+=j makes i=8 and j=3
+i=j++ makes i=8 and j=4
+i=++j makes i=9 and j=4
+i%j does not alter the values stored in i nor j but returns 2
+i%j++ does not alter the value of i, but it returns the value of 2 and then increments j to be 4
 
 Q4:
 
