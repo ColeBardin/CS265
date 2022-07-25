@@ -15,7 +15,13 @@ i=++j makes i=9 and j=4
 i%j does not alter the values stored in i nor j but returns 2
 i%j++ does not alter the value of i, but it returns the value of 2 and then increments j to be 4
 
-Q4:
+Q4: scanf will read from stdin (keyboard) until hitting EOF or whitespace or newline, then attempts to match it to the format
+specifier given. getchar will also read from stdin stream, however it will only read one character from the stream
+regardless of the format. Scanf moves the file position marker to the next whitespace while getchar will only move the
+file position marker one character. Example, calling scanf with %c and entering a string longer than length 1 will only
+save the first character into the given variable, but the rest of the string will be omitted. on the other hand, getchar
+will would only read the first char of that string and allow the other characters to be accessed by calling getchar
+again.
 
 Q5:
 
