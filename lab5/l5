@@ -23,6 +23,10 @@ save the first character into the given variable, but the rest of the string wil
 will would only read the first char of that string and allow the other characters to be accessed by calling getchar
 again.
 
-Q5:
+Q5: 
+	double x = 12.300000
+	integer i = 45, scanf ignores all floating point value
+	double y = 0.600000
+	since 45.6 is interpreted as int 45 and float .6 with no whitespace, disregarding 789 since it matched its 3 vars
 
 Q6:
