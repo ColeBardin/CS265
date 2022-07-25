@@ -6,7 +6,7 @@ values of the variables. I did not know what to expect since I had never played 
 I assumed they would default to whatever happened to be stored there. With gcc, only the local int had a nonzero value,
 but with tcc all values were initialized to 0. By my guess, it seems to be a feature of tcc to do that.
 
-Q2:
+Q2: Done. file is bills.c
 
 Q3:
 
