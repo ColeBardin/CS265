@@ -1,0 +1,15 @@
+Lab 6 by Cole Bardin
+~kschmidt/public_html/CS265/Labs/C
+
+1.1: Consider the integers: i=5, j=12, k=-13, z=0
+j < i 			0
+! j < i 		1
+(! j) < i 		1
+i + j 			1
+!i + j 			1
+!!i + !j 		1
+j && k 			1
+i && j || z 	1
+i && ( j || z ) 1
+
+1.2 Done, file named leap.c
