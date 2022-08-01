@@ -46,4 +46,8 @@ while( resp!='n' && resp!='N' )
    scanf( " %c", &resp ) ;
 }
 
-2.4:
+2.4: Done, file called readlines.c
+
+2.5 Done, file called ult.c
+
+2.6: Done, file called urt.c
