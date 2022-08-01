@@ -1,6 +1,8 @@
 Lab 6 by Cole Bardin
 ~kschmidt/public_html/CS265/Labs/C
 
+Part 1: C Branches
+
 1.1: Consider the integers: i=5, j=12, k=-13, z=0
 j < i 			0
 ! j < i 		1
@@ -13,3 +15,35 @@ i && j || z 	1
 i && ( j || z ) 1
 
 1.2 Done, file named leap.c
+
+Part 2: C Loops
+
+2.1: Output will be:
+5 4 3 2
+Since j is predecremented, its value changes before the statement evaluation.
+And it is always 1 less than i, so after the state (i,j) = (2,1), it gets evaluated to (1,0) and then the loop won't
+execute.
+
+2.2: Output will be:
+10 5 3 2 1 1 1 1 1 ... 1 repeating forever
+Starting with i=10 the loop prints i and then increments it to 11 then divides it by 2 11/2 in int is 5
+then it prints 5, increments to 6 then divides by 2 so now i=3
+prints 3, increments to 4 then divides by 2 so i=2
+prints 2, increments to 3 then divides by 2 so i=1
+prints 1, increments to 1 then divides by 2 so i=1 (NOTE: the begining state of i=1 returns i=1 so this is an infinite
+loop)
+prints 1... repeats forever
+
+2.3:
+char resp = 'y' ;
+
+while( resp!='n' && resp!='N' )
+{
+   // processing...
+
+   printf( "\nEnter another input? (y/[n]) => " ) ;
+      // the space preceding the %c tells scanf to skip whitespace
+   scanf( " %c", &resp ) ;
+}
+
+2.4:
