@@ -96,6 +96,7 @@ int main(int argc, char *argv[]) {
 		return EXIT_FAILURE;
 	}
 	
+	/* TODO: Handle mutliple lines per input stream */
 	/* Get the first character to determine message type */
 	switch (getc(input)) {
 		case 'E':
