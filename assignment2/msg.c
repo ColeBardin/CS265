@@ -9,8 +9,9 @@ int check_op();
 int check_ork();
 
 int main(int argc, char *argv[]) {
-	
 	char first;
+	char *fn;
+	FILE *input;
 
 	/* TODO: handle arguments to determine input type */
 
