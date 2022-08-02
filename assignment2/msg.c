@@ -11,44 +11,38 @@ void usage() {
 }
 
 int check_foo() {
-	int valid=1;
-	int state=2;
+	int valid=1; /* 1 for valid message. 0 for invalid */
+	int state=2; /* initial state is 2 to follow FSM in guidlines */
+	
+	/* Print out type char */
 	putchar('E');
 	while(1) {
+		/* Get the next input */
 		curr = getc(input);
-		if (curr==EOF | curr=='\n') {
-			if (valid) {
-				return 1;
-			}
-			else {
-				return 0;
-			}
-		}
-		else {
-			putchar(curr);
-		}
 
+		/* If char is EOF or a newline */ 
+		if (curr==EOF | curr=='\n') return valid; /* Return validity and exit check */
+		else putchar(curr); /* If not, just print the character */
+
+		/* While the sequence is still considered valid */
 		if (valid) {
+			/* For given inputs */
 			switch (curr) {
-			case '0':
-				if (state==2) state=3;
-				else if (state==3) state=3;
-				else if (state==4) valid=0;
-				break;
+			/* For inputs 1, 2, and 3 */
+			case '0': 
 			case '1':
-				if (state==2) state=3;
-				else if (state==3) state=3;
-				else if (state==4) valid=0;
-				break;
 			case '2':
-				if (state==2) state=3;
-				else if (state==3) state=3;
-				else if (state==4) valid=0;
+				if (state==2) state=3; /* Change state 2 to 3 */
+				else if (state==3) state=3; /* Remain at state 3 */
+				else if (state==4) valid=0; /* Invalid entry for state 4 */
 				break;
-			case 'F':
-				if (state==2) valid=0;
-				else if (state==3) state=4;
-				else if (state==4) valid=0;
+			case 'F': /* For input of F */
+				if (state==2) valid=0; /* Invalid entry for state 2 */
+				else if (state==3) state=4; /* Change state from 3 to 4 */
+				else if (state==4) valid=0; /* Invalid entry for state 4 */
+				break;
+			default: /* Other characters are invalid */
+				valid=0;
 				break;
 			}
 		}
@@ -56,7 +50,36 @@ int check_foo() {
 }
 
 int check_eep() {
-	return 0;
+	int valid=1; /* 1 for valid message. 0 for invalid */
+	int state=2; /* initial state is 2 to follow FSM in guidlines */
+	
+	/* Print out type char */
+	putchar('P');
+	while(1) {
+		/* Get the next input */
+		curr = getc(input);
+
+		/* If char is EOF or a newline */ 
+		if (curr==EOF | curr=='\n') return valid; /* Return validity and exit check */
+		else putchar(curr); /* If not, just print the character */
+
+		/* While the sequence is still considered valid */
+		if (valid) {
+			/* For given inputs */
+			switch (curr) {
+			case 'B': /* For input of */
+				if (state==2) state=3;
+				else if (state==3) valid=0;
+				break;
+			case 'C':
+				if (state==2) valid=0;
+				else if (state==3) state=2;
+			default: /* Other characters are invalid */
+				valid=0;
+				break;
+			}
+		}
+	}
 }
 
 int check_op() {
