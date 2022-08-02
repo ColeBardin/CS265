@@ -51,3 +51,7 @@ while( resp!='n' && resp!='N' )
 2.5 Done, file called ult.c
 
 2.6: Done, file called urt.c
+
+Part 3: C Arrays
+
+3.1: Done, file called rev-array.c
