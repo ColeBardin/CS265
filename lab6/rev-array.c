@@ -11,7 +11,7 @@ int main()
 	char *buff = NULL ;
 	double arr[100];
 	size_t len ;
-	int i, cnt = 0;
+	int i=0, cnt=0;
 
 	while( getline( &buff, &len, stdin ) > 1 ) {
 		arr[cnt] = atof(buff);
@@ -22,13 +22,15 @@ int main()
 		}
 	}
 	
+	/* Create properly sized array */
 	double final[cnt];
-	i=0;
+	/* Iterate i up to count */
 	while (i<cnt) {
+		/* Reverse order of items from arr into final */
 		final[i] = arr[cnt-i-1];
 		i++;
 	}
-
+	/* Print out each element of final array */
 	for (i=0; i<cnt; i++) {
 		printf("%lf\n", final[i]);
 	}
