@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+FILE *input;
 int curr;
 
 void usage() {
@@ -9,15 +10,66 @@ void usage() {
 	return;
 }
 
-int check_foo() 
-int check_eep();
-int check_op();
-int check_ork();
+int check_foo() {
+	int valid=1;
+	int state=2;
+	putchar('E');
+	while(1) {
+		curr = getc(input);
+		if (curr==EOF | curr=='\n') {
+			if (valid) {
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		}
+		else {
+			putchar(curr);
+		}
+
+		if (valid) {
+			switch (curr) {
+			case '0':
+				if (state==2) state=3;
+				else if (state==3) state=3;
+				else if (state==4) valid=0;
+				break;
+			case '1':
+				if (state==2) state=3;
+				else if (state==3) state=3;
+				else if (state==4) valid=0;
+				break;
+			case '2':
+				if (state==2) state=3;
+				else if (state==3) state=3;
+				else if (state==4) valid=0;
+				break;
+			case 'F':
+				if (state==2) valid=0;
+				else if (state==3) state=4;
+				else if (state==4) valid=0;
+				break;
+			}
+		}
+	}
+}
+
+int check_eep() {
+	return 0;
+}
+
+int check_op() {
+	return 0;
+}
+
+int check_ork() {
+	return 0;
+}
 
 int main(int argc, char *argv[]) {
 	int first;
 	char *fn;
-	FILE *input;
 
 	/* If no arguments are given */
 	if (argc == 1) {
@@ -47,16 +99,16 @@ int main(int argc, char *argv[]) {
 	/* Get the first character to determine message type */
 	switch (getc(input)) {
 		case 'E':
-			check_foo()?puts(" OK"):puts(" FAIL");
+			check_foo()?puts(" OK\n"):puts(" FAIL\n");
 			break;
 		case 'P':
-			check_eep()?puts(" OK"):puts(" FAIL");
+			check_eep()?puts(" OK\n"):puts(" FAIL\n");
 			break;
 		case 'Q':
-			check_op()?puts(" OK"):puts(" FAIL");
+			check_op()?puts(" OK\n"):puts(" FAIL\n");
 			break;
 		case 'M':
-			check_ork()?puts(" OK"):puts(" FAIL");
+			check_ork()?puts(" OK\n"):puts(" FAIL\n");
 			break;
 	}
 
