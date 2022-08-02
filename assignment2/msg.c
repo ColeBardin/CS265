@@ -60,7 +60,7 @@ int check_eep() {
 		curr = getc(input);
 
 		/* If char is EOF or a newline */ 
-		if (curr==EOF | curr=='\n') return state==2?valid:0; /* If state is two, return validity, else return INVALID */
+		if (curr==EOF | curr=='\n') return state==2?valid:0; /* If state is 2, return validity, else return INVALID */
 		else putchar(curr); /* If not, just print the character */
 
 		/* While the sequence is still considered valid */
@@ -72,7 +72,7 @@ int check_eep() {
 				else if (state==3) valid=0; /* Invalid input for state 3 */
 				break;
 			case 'C': /* For input of C */
-				if (state==2) valid=0; /* Invalud input for state 2 */
+				if (state==2) valid=0; /* Invalid input for state 2 */
 				else if (state==3) state=2; /* Changes state from 3 to 2 */
 				break;
 			default: /* Other characters are invalid */
@@ -94,19 +94,18 @@ int check_op() {
 		curr = getc(input);
 
 		/* If char is EOF or a newline */ 
-		if (curr==EOF | curr=='\n') return state==2?valid:0; /* If state is two, return validity, else return INVALID */
+		if (curr==EOF | curr=='\n') return state==3?valid:0; /* If state is 3, return validity, else return INVALID */
 		else putchar(curr); /* If not, just print the character */
 
 		/* While the sequence is still considered valid */
 		if (valid) {
 			/* For given inputs */
 			switch (curr) {
-			case 'B': /* For input of B */
-				if (state==2) state=3; /* Changes state from 2 to 3 */
-				else if (state==3) valid=0; /* Invalid input for state 3 */
+			case '6': /* For input of 6 */
+				/* No state change but it is a valid input */
 				break;
-			case 'C': /* For input of C */
-				if (state==2) valid=0; /* Invalud input for state 2 */
+			case '7': /* For input of 7 */
+				if (state==2) state=3; /* Change state from 2 to 3 */
 				else if (state==3) state=2; /* Changes state from 3 to 2 */
 				break;
 			default: /* Other characters are invalid */
