@@ -2,20 +2,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-int valid=0;
-
-int check_foo();
-int check_eep();
-int check_op();
-int check_ork();
+int curr;
 
 void usage() {
 	fprintf(stderr, "Usage: ./msg [input filename]\n");
 	return;
 }
 
+int check_foo() 
+int check_eep();
+int check_op();
+int check_ork();
+
 int main(int argc, char *argv[]) {
-	char first;
+	int first;
 	char *fn;
 	FILE *input;
 
@@ -43,13 +43,28 @@ int main(int argc, char *argv[]) {
 		usage();
 		return EXIT_FAILURE;
 	}
+	
+	/* Get the first character to determine message type */
+	switch (getc(input)) {
+		case 'E':
+			check_foo()?puts(" OK"):puts(" FAIL");
+			break;
+		case 'P':
+			check_eep()?puts(" OK"):puts(" FAIL");
+			break;
+		case 'Q':
+			check_op()?puts(" OK"):puts(" FAIL");
+			break;
+		case 'M':
+			check_ork()?puts(" OK"):puts(" FAIL");
+			break;
+	}
 
-	/* TODO: Open file and error handle */
+	/* If reading from given file */
+	if (argc == 2) {
+		/* Close the file stream */
+		fclose(input);
+	}
 
-	/* TODO: Get first char and determine message type */
-
-	/* TODO: Validate message (func prints message too!) */
-
-	/* Close file */
 	return 0;
 }
