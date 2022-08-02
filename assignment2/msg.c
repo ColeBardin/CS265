@@ -74,6 +74,7 @@ int check_eep() {
 			case 'C': /* For input of C */
 				if (state==2) valid=0; /* Invalud input for state 2 */
 				else if (state==3) state=2; /* Changes state from 3 to 2 */
+				break;
 			default: /* Other characters are invalid */
 				valid=0;
 				break;
