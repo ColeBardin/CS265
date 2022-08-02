@@ -1,5 +1,5 @@
 /*********************************************************
- * readlines.c - reads until blank line or EOF
+ * rev-array.c - reads doubles until blank line or EOF, stores reversed order in array 
  *
  *******************************************************/
 
@@ -9,28 +9,29 @@
 int main()
 {
 	char *buff = NULL ;
+	double arr[100];
 	size_t len ;
-	int cnt = 0;
-	double min, max, mean=0.0, curr;
-	int flag=0;
+	int i, cnt = 0;
 
-	while( getline( &buff, &len, stdin ) > 1 )
-	{
-		curr = atof(buff);
+	while( getline( &buff, &len, stdin ) > 1 ) {
+		arr[cnt] = atof(buff);
 		++cnt ;
-		if (!flag) {
-			min=curr;
-			max=curr;
-			flag=1;
+		if (cnt>10) {
+			fprintf(stderr, "ERROR: rev-array given more than 100 numbers\n");
+			return -1;
 		}
-		
-		if (curr < min) min=curr;
-		if (curr > max) max=curr;
-		mean = ( ((double)cnt-1.0)*mean + curr ) / (double)cnt ;
+	}
+	
+	double final[cnt];
+	i=0;
+	while (i<cnt) {
+		final[i] = arr[cnt-i-1];
+		i++;
 	}
 
-	printf( "\nEnd of input detected.  I read %d lines.\n", cnt ) ;
-	printf( "Min:  %lf\nMax:  %lf\nMean: %lf\n", min, max, mean);
+	for (i=0; i<cnt; i++) {
+		printf("%lf\n", final[i]);
+	}
 
 	free( buff ) ;
 	return 0 ;
