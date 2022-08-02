@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define ARR_MAX 100
+#define ARR_MAX 10
 
 int main()
 {
@@ -15,18 +15,21 @@ int main()
 	size_t len ;
 	int i=0, cnt=0;
 
+	printf("Enter up to 100 doubles:\n");
 	/* Read until EOF */
 	while( getline( &buff, &len, stdin ) > 1 ) {
 		/* If count of given numbers will exceed limits of initial array */
 		if (cnt>ARR_MAX-1) {
 			fprintf(stderr, "ERROR: rev-array given more than 100 numbers\n");
-			return -1;
+			printf("Ending input stream and ignoring %lf input\n\n", atof(buff));
+			break;
 		}
 		/* Store values from getline into array */
 		arr[cnt] = atof(buff);
 		++cnt ;	
 	}
-	
+
+	printf("Reversed order is:\n");
 	/* Create properly sized array */
 	double final[cnt];
 	/* Iterate i up to count */
