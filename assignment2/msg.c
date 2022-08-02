@@ -10,7 +10,7 @@ int check_op();
 int check_ork();
 
 void usage() {
-	fprintf(stderr, "./msg [input filename]\n");
+	fprintf(stderr, "Usage: ./msg [input filename]\n");
 	return;
 }
 
