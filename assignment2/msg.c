@@ -15,7 +15,7 @@ int check_foo() {
 	int state=2; /* initial state is 2 to follow FSM in guidlines */
 	
 	/* Print out type char */
-	putchar('E');
+	putchar(curr);
 	while(1) {
 		/* Get the next input */
 		curr = getc(input);
@@ -54,7 +54,7 @@ int check_eep() {
 	int state=2; /* initial state is 2 to follow FSM in guidlines */
 	
 	/* Print out type char */
-	putchar('P');
+	putchar(curr);
 	while(1) {
 		/* Get the next input */
 		curr = getc(input);
@@ -84,7 +84,37 @@ int check_eep() {
 }
 
 int check_op() {
-	return 0;
+	int valid=1; /* 1 for valid message. 0 for invalid */
+	int state=2; /* initial state is 2 to follow FSM in guidlines */
+	
+	/* Print out type char */
+	putchar(curr);
+	while(1) {
+		/* Get the next input */
+		curr = getc(input);
+
+		/* If char is EOF or a newline */ 
+		if (curr==EOF | curr=='\n') return state==2?valid:0; /* If state is two, return validity, else return INVALID */
+		else putchar(curr); /* If not, just print the character */
+
+		/* While the sequence is still considered valid */
+		if (valid) {
+			/* For given inputs */
+			switch (curr) {
+			case 'B': /* For input of B */
+				if (state==2) state=3; /* Changes state from 2 to 3 */
+				else if (state==3) valid=0; /* Invalid input for state 3 */
+				break;
+			case 'C': /* For input of C */
+				if (state==2) valid=0; /* Invalud input for state 2 */
+				else if (state==3) state=2; /* Changes state from 3 to 2 */
+				break;
+			default: /* Other characters are invalid */
+				valid=0;
+				break;
+			}
+		}
+	}
 }
 
 int check_ork() {
@@ -92,7 +122,6 @@ int check_ork() {
 }
 
 int main(int argc, char *argv[]) {
-	int first;
 	char *fn;
 
 	/* If no arguments are given */
@@ -122,7 +151,7 @@ int main(int argc, char *argv[]) {
 	
 	/* TODO: Handle mutliple lines per input stream */
 	/* Get the first character to determine message type */
-	switch (getc(input)) {
+	switch (curr=getc(input)) {
 		case 'E':
 			check_foo()?puts(" OK\n"):puts(" FAIL\n");
 			break;
