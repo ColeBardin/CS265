@@ -60,20 +60,20 @@ int check_eep() {
 		curr = getc(input);
 
 		/* If char is EOF or a newline */ 
-		if (curr==EOF | curr=='\n') return valid; /* Return validity and exit check */
+		if (curr==EOF | curr=='\n') return state==2?valid:0; /* If state is two, return validity, else return INVALID */
 		else putchar(curr); /* If not, just print the character */
 
 		/* While the sequence is still considered valid */
 		if (valid) {
 			/* For given inputs */
 			switch (curr) {
-			case 'B': /* For input of */
-				if (state==2) state=3;
-				else if (state==3) valid=0;
+			case 'B': /* For input of B */
+				if (state==2) state=3; /* Changes state from 2 to 3 */
+				else if (state==3) valid=0; /* Invalid input for state 3 */
 				break;
-			case 'C':
-				if (state==2) valid=0;
-				else if (state==3) state=2;
+			case 'C': /* For input of C */
+				if (state==2) valid=0; /* Invalud input for state 2 */
+				else if (state==3) state=2; /* Changes state from 3 to 2 */
 			default: /* Other characters are invalid */
 				valid=0;
 				break;
