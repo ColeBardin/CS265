@@ -6,20 +6,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define ARR_MAX 100
+
 int main()
 {
 	char *buff = NULL ;
-	double arr[100];
+	double arr[ARR_MAX];
 	size_t len ;
 	int i=0, cnt=0;
 
+	/* Read until EOF */
 	while( getline( &buff, &len, stdin ) > 1 ) {
-		arr[cnt] = atof(buff);
-		++cnt ;
-		if (cnt>10) {
+		/* If count of given numbers will exceed limits of initial array */
+		if (cnt>ARR_MAX-1) {
 			fprintf(stderr, "ERROR: rev-array given more than 100 numbers\n");
 			return -1;
 		}
+		/* Store values from getline into array */
+		arr[cnt] = atof(buff);
+		++cnt ;	
 	}
 	
 	/* Create properly sized array */
