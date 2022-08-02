@@ -117,7 +117,57 @@ int check_op() {
 }
 
 int check_ork() {
-	return 0;
+	int valid=1; /* 1 for valid message. 0 for invalid */
+	int state=0; 
+	/* Deviates from FSM numbers: 
+	0 means 0 digits entered
+	1 means 1 digit entered
+	2 means 2 digits entered */
+	
+	/* Print out type char */
+	putchar(curr);
+	while(1) {
+		/* Get the next input */
+		curr = getc(input);
+
+		/* If char is EOF or a newline */ 
+		if (curr==EOF | curr=='\n') return 0;
+		else putchar(curr); /* If not, just print the character */
+
+		/* While the sequence is still considered valid */
+		if (valid) {
+			switch (state) {
+				case 0:
+					/* If input is a digit */
+					if ( curr>='0' & curr<='9' ) {
+						/* Print character and progress states */
+						putchar(curr);
+						state=1;
+					} else {
+						/* Return invalid if not */
+						return 0;
+					}
+					break;
+				case 2:
+					/* If input is a digit */
+					if ( curr>='0' & curr<='9' ) {
+						/* Print character and progress states */
+						putchar(curr);
+						state=3;
+					} else {
+						/* Return invalid if not */
+						return 0;
+					}
+					break;
+				case 3:
+					if ( curr=='E' ) {
+						return check_foo();	
+					} else if ( curr=='P' ) {
+						return check_eep();
+					}
+			}
+		}
+	}
 }
 
 int main(int argc, char *argv[]) {
