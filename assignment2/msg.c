@@ -208,27 +208,31 @@ int main(int argc, char *argv[]) {
 	}
 	
 	/* TODO: Handle mutliple lines per input stream */
-	/* Get the first character to determine message type */
-	switch (curr=getc(input)) {
-		case 'E': /* foo */
-			check_foo()?puts(" OK\n"):puts(" FAIL\n");
-			break;
-		case 'P': /* eep */
-			check_eep()?puts(" OK\n"):puts(" FAIL\n");
-			break;
-		case 'Q': /* op */
-			check_op()?puts(" OK\n"):puts(" FAIL\n");
-			break;
-		case 'M': /* ork */
-			check_ork()?puts(" OK\n"):puts(" FAIL\n");
-			break;
-		default:
-			/* Print first char */
-			putchar(curr);
-			/* Print the rest of the string */
-			print_rest();
-			puts(" FAIL\n");
-			break;
+	while (curr!=EOF) {
+		/* Get the first character to determine message type */
+		switch (curr=getc(input)) {
+			case 'E': /* foo */
+				check_foo()?puts(" OK"):puts(" FAIL");
+				break;
+			case 'P': /* eep */
+				check_eep()?puts(" OK"):puts(" FAIL");
+				break;
+			case 'Q': /* op */
+				check_op()?puts(" OK"):puts(" FAIL");
+				break;
+			case 'M': /* ork */
+				check_ork()?puts(" OK"):puts(" FAIL");
+				break;
+			case EOF:
+				break;
+			default:
+				/* Print first char */
+				putchar(curr);
+				/* Print the rest of the string */
+				print_rest();
+				puts(" FAIL\n");
+				break;
+		}
 	}
 
 	/* If reading from given file */
