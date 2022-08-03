@@ -184,8 +184,6 @@ int check_ork() {
 }
 
 int main(int argc, char *argv[]) {
-	char *fn;
-
 	/* If no arguments are given */
 	if (argc == 1) {
 		/* FILE pointer is stdin */
@@ -193,13 +191,11 @@ int main(int argc, char *argv[]) {
 	}
 	/* If one additional argument is given */
 	else if (argc == 2) {
-		/* Filename is given command linea argument */
-		strcpy(fn, argv[1]);
 		/* Open file */
-		input = fopen(fn, "r");
+		input = fopen(argv[1], "r");
 		/* Error handle file opening */
 		if (!input) {
-			fprintf(stderr, "ERROR: Failed to open %s file in current directory\n", fn);
+			fprintf(stderr, "ERROR: Failed to open \'%s\' file in current directory\n", argv[1]);
 			return EXIT_FAILURE;
 		}
 	}
