@@ -207,7 +207,7 @@ int main(int argc, char *argv[]) {
 		return EXIT_FAILURE;
 	}
 	
-	/* TODO: Handle mutliple lines per input stream */
+	/* Repeat until EOF */
 	while (curr!=EOF) {
 		/* Get the first character to determine message type */
 		switch (curr=getc(input)) {
