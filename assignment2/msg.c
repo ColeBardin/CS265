@@ -13,10 +13,13 @@ void usage() {
 void print_rest() {
 	int val;
 	while (1) {
+		/* Get input character */
 		val = getc(input);
 		if ( val==EOF | val=='\n' ) {
+			/* If it is EOF or newline, end printing process */
 			return;
-		} else {
+		} else { 
+			/* If not, print it to screen */
 			putchar(val);
 		}
 	}
