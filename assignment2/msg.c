@@ -223,9 +223,9 @@ int main(int argc, char *argv[]) {
 			case 'M': /* ork */
 				check_ork()?puts(" OK"):puts(" FAIL");
 				break;
-			case EOF:
-				break;
-			default:
+			case EOF: /* EOF */
+				break; /* Do nothing so loop can end */
+			default: /* Any other character */
 				/* Print first char */
 				putchar(curr);
 				/* Print the rest of the string */
