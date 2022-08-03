@@ -10,6 +10,18 @@ void usage() {
 	return;
 }
 
+void print_rest() {
+	int val;
+	while (1) {
+		val = getc(input);
+		if ( val==EOF | val=='\n' ) {
+			return;
+		} else {
+			putchar(val);
+		}
+	}
+}
+
 int check_foo() {
 	int valid=1; /* 1 for valid message. 0 for invalid */
 	int state=2; /* initial state is 2 to follow FSM in guidlines */
@@ -130,7 +142,7 @@ int check_ork() {
 		/* Get the next input */
 		curr = getc(input);
 
-		/* If char is EOF or a newline */ 
+		/* If char is EOF or a newline, only possible way to get here is sequence is not foo or eep */ 
 		if (curr==EOF | curr=='\n') return 0;
 
 		/* While the sequence is still considered valid */
@@ -143,26 +155,27 @@ int check_ork() {
 						//putchar(curr);
 						state=1;
 					} else {
-						/* Return invalid if not */
-						return 0;
+						/* Set as invalid if not */
+						valid=0;
 					}
 					break;
 				case 1:
 					/* If input is a digit */
 					if ( curr>='0' & curr<='9' ) {
 						/* Print character and progress states */
-						//putchar(curr);
 						state=2;
 					} else {
-						/* Return invalid if not */
-						return 0;
+						/* Set as invalid if not */
+						valid=0;
 					}
 					break;
 				case 2:
-					if ( curr=='E' ) {
+					if ( curr=='E' ) { /* foo specifier */
 						return check_foo();	
-					} else if ( curr=='P' ) {
+					} else if ( curr=='P' ) { /* eep specifier */
 						return check_eep();
+					} else { /* Any other character in state 3 is invalid */
+						valid=0;
 					}
 			}
 		}
@@ -201,17 +214,24 @@ int main(int argc, char *argv[]) {
 	/* TODO: Handle mutliple lines per input stream */
 	/* Get the first character to determine message type */
 	switch (curr=getc(input)) {
-		case 'E':
+		case 'E': /* foo */
 			check_foo()?puts(" OK\n"):puts(" FAIL\n");
 			break;
-		case 'P':
+		case 'P': /* eep */
 			check_eep()?puts(" OK\n"):puts(" FAIL\n");
 			break;
-		case 'Q':
+		case 'Q': /* op */
 			check_op()?puts(" OK\n"):puts(" FAIL\n");
 			break;
-		case 'M':
+		case 'M': /* ork */
 			check_ork()?puts(" OK\n"):puts(" FAIL\n");
+			break;
+		default:
+			/* Print first char */
+			putchar(curr);
+			/* Print the rest of the string */
+			print_rest();
+			puts(" FAIL\n");
 			break;
 	}
 
