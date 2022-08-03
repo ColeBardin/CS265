@@ -132,7 +132,6 @@ int check_ork() {
 
 		/* If char is EOF or a newline */ 
 		if (curr==EOF | curr=='\n') return 0;
-		else putchar(curr); /* If not, just print the character */
 
 		/* While the sequence is still considered valid */
 		if (valid) {
@@ -141,25 +140,25 @@ int check_ork() {
 					/* If input is a digit */
 					if ( curr>='0' & curr<='9' ) {
 						/* Print character and progress states */
-						putchar(curr);
+						//putchar(curr);
 						state=1;
 					} else {
 						/* Return invalid if not */
 						return 0;
 					}
 					break;
-				case 2:
+				case 1:
 					/* If input is a digit */
 					if ( curr>='0' & curr<='9' ) {
 						/* Print character and progress states */
-						putchar(curr);
-						state=3;
+						//putchar(curr);
+						state=2;
 					} else {
 						/* Return invalid if not */
 						return 0;
 					}
 					break;
-				case 3:
+				case 2:
 					if ( curr=='E' ) {
 						return check_foo();	
 					} else if ( curr=='P' ) {
@@ -167,6 +166,7 @@ int check_ork() {
 					}
 			}
 		}
+		if (curr!=EOF & curr!='\n') putchar(curr); /* Print curr if it is not EOF or newline */
 	}
 }
 
