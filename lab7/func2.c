@@ -1,33 +1,40 @@
 #include <stdio.h>
 
 void int2string(int n, char answer[]){
-	int ndig=1;
-	char buff[10];
+	int ndig=0;
+	int buff[11];
+	/* Do once and repeat if condition is true */
+	do {
+		/* Save ones digit to buffer */
+		buff[ndig] = n%10;
+		/* Integer divide number by 10 */
+		n/=10;
+		/* Increment digit counter */
+		ndig++;
+	} while ( n != 0 ); /* Repeat while n != 0 */
 
-	
+	/* Reverse order of buffer and store in answer string */
+	for (int i=0; i<ndig; i++) {
+		answer[i]= (char)buff[ndig-i-1] + '0'; /* Convert int numbers to appropriate chars */
+	}
+	/* Add nullchar to end of char array */
+	answer[ndig]='\0';
 	return;
 }
 
 int main(){
-	char *buff = NULL;
-	size_t len;
-	size_t count=0;
-	double arr[BUFF_SIZE];
+	char answer[10];
+	int n=0;
 
 	/* Read from stdin until EOF */	
-	while ( getline(&buff, &len, stdin) > 0 ) {
-		/* Error handle number of inputs to avoid index error */
-		if (count == BUFF_SIZE) {
-			fprintf(stderr, "ERROR: Program given more than %d doubles from user\nIgnoring input %lf\n",BUFF_SIZE, atof(buff));
-			break;
-		}
-		/* Save input to array */
-		arr[count] = atof(buff);
-		/* Increment count */
-		count++;
-	}
+	while ( 1 ) {
+		/* Scan for integers, ends loop on EOF */
+		if ( scanf("%d", &n) < 1 ) break;
 
-	/* Call arrAvg and print results to stdout */
-	printf("Average of array: %lf\n", arrAvg(arr, count));
+		/* Pass the int to our function */
+		int2string(n, answer);
+		/* Prints the string function to STDOUT */
+		printf("In String form: %s\n", answer);
+	}
 	return 0;
 }
