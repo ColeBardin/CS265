@@ -23,9 +23,10 @@ void int2string(int n, char answer[]){
 }
 
 int main(){
-	char answer[10];
-	int n=0;
+	char answer[11];
+	int n;
 
+	printf("Enter integers no larger than 10 digits\n");
 	/* Read from stdin until EOF */	
 	while ( 1 ) {
 		/* Scan for integers, ends loop on EOF */
