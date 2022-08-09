@@ -287,4 +287,6 @@ This program prints out each code that it reads followed by `OK` if it is valid 
 
 It uses functions that have built in Finite State Machines to determine whether or not a message is valid
 
-More information, including the FSMs for each code in `Assignment2.pdf`
+Reading from input continues indefinitely until `EOF` is hit
+
+More information, including the FSMs for each code, see `Assignment2.pdf`
