@@ -140,3 +140,167 @@ The program will error for various reasons:
 - No arguments/more than 4 arguments passed
 - Measurement not in specified list
 - Invalid arguments/improper flag position
+
+## Lab 5
+
+Lab 5 covers the differences between C compilers.
+
+I tested GCC vs TCC to determine how uninitialized variables are treated.
+
+This lab also had me write two programs: `bills.c` and `ipay.c`
+
+### bills.c
+
+Usage: `./bills`
+
+Program will prompt user for an integer value that represents a dollar amount
+
+Then the program outputs how many 1, 5, 10, and 20 dollar bills make up that ammount
+
+### ipay.c
+
+UsageL `./ipay`
+
+Program prompts user for a float input to represent a subtotal dollar amount
+
+The program then calculates a 7% tip and 22% tax.
+
+Finally, it outputs the users subtotal, tip, tax, and total
+
+## Lab 6
+
+Lab 6 works with braching evaluation, loops and arrays
+
+I had to predict th evaluation of statements and outout of programs
+
+I also had to write several programs for this lab:
+
+`leap.c`, `readlines.c`, `ult.c`, `urt.c`, and `rev-array.c`
+
+### leap.c
+
+Usage: `./leap`
+
+The program then prompts the user for year number in the form of an integer
+
+Then outputs `YES` if the year is a leap year, and `NO` if not
+
+### readlines.c
+
+Usage: `./readlines`
+
+This program reads doubles separated by newlines from `STDIN` until `EOF`
+
+After the input stops, the program outputs the minumum and maximum values and the mean
+
+### ult.c
+
+Usage: `./ult`
+
+This program prompts the user for an integer input
+
+Then it prints out a isosceles triangle of the given length with `*` chars to the terminal justifed to the right
+
+Example: 
+`./ult
+4
+****
+***
+**
+*`
+
+### urt.c
+
+Usage: `./urt`
+
+This program prompts the user for an integer input
+
+Then it prints out an ososceles triangle of the given length with `*` chars to the terminal justified to the left
+
+Example:
+`./urt
+4
+****
+ ***
+  **
+   *`
+
+### rev-array.c
+
+Usage: `./rev-array`
+
+This program reads up to 100 doubles separated by newline from `STDIN` and loads them into an array
+
+Then it creates a properly sized array that holds all the inputs in the reversed order then prints them to the screen
+
+## Lab 7
+
+Lab 7 works with functions, pointers and strings in C
+
+I had to write a few programs and functions:
+
+`func1.c`, `func2.c`, `pointerFuncs.c`, `stringFuncs.c`, and `circle.c`
+
+### func1.c
+
+This program contains a function called `arrAvg` that takes in an array of doubles and a length
+
+The function calculates the average value of the array and returns it
+
+### func2.c
+
+This program contains a function called `int2string` that takes an integer and a destination string
+
+The number is expected to be no longer than 10 digits
+
+This reads each digit in reverse order and converts them to strings
+
+Then it loads the characters into a string of the number
+
+### pointerFuncs.c
+
+This program contains 3 functions: `binSearch`, `arrStats`, and `arrFind`
+
+`binSearch` performs binary search in an array for a target int
+
+If found, returns index of target, if not, returns length of array
+
+`arrStats` computes the statistics for an array of doubles
+
+It stores the min, max, and mean values into destination pointers passed to it
+
+`arrFind` searches an array of ints for a target integer
+
+If found, returns the address of the target, if not, it returns `NULL`
+
+### stringFuncs.c
+
+This program contains a function called `capitalize` which capitalizes a string passed as a parameter
+
+It edits each character in place in the string, converting lowercase alphabet characters to uppercase
+
+### circle.c
+
+Usage: `./circle name radius`
+
+This program must take in a name and a radius as a double as command line arguments
+
+Then it computes the area of the circle with `M_PI` from `<math.h>`
+
+It outputs a nice message with the name and the area
+
+## Assignment 2
+
+### msg.c program
+
+Usage: `./msg [input-filename]`
+
+Brief: `msg.c` reads codes (sequences of characters separated by newlines) from either `STDIN` or from a given file
+
+Each code begins with a specific specifier character then must follow a precise sequence
+
+This program prints out each code that it reads followed by `OK` if it is valid or `FAIL` if it
+
+It uses functions that have built in Finite State Machines to determine whether or not a message is valid
+
+More information, including the FSMs for each code in `Assignment2.pdf`
