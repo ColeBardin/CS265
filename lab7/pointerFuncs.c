@@ -34,3 +34,11 @@ void arrStats(double *arr, size_t n, double *min, double *max, double *mean) {
 	*mean /= (double)n;
 	return;
 }
+
+int *arrFind(int *arr, size_t n, int target) {
+	int index, num;
+	for (index=0; index<n; index++){
+		num = *(arr + index*sizeof(*arr));
+	}
+	return NULL;
+}
