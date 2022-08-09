@@ -9,7 +9,7 @@ Part 2: Pointers
 2.1:
 #include <stddef.h>
 
-/* Performs Binary Search on integer array.
+/* binSearch: Performs Binary Search on integer array.
 If target is found, returns its index.
 If target is not found, returns size_t n 
 Parameters:
@@ -29,8 +29,9 @@ size_t binSearch(int *arr, size_t n, int target){
 
 2.2:
 #include <stddef.h>
-/* Computes statistics on array of doubles.
+/* arrStats: Computes statistics on array of doubles.
 Stores min, max and mean in double pointers provided to it 
+Returns void.
 Parameters:
 	double *arr: 	array of doubles to use for calculations
 	size_t n: 		length of arr as size_t
@@ -63,7 +64,7 @@ void arrStats(double *arr, size_t n, double *min, double *max, double *mean) {
 
 2.3:
 #include <stddef.h>
-/* Searches an array of integers of size n for a target integer.
+/* arrFind: Searches an array of integers of size n for a target integer.
 If found, returns poiner to target value in arr.
 If not found, returns NULL 
 Parameters:
@@ -85,3 +86,35 @@ int *arrFind(int *arr, size_t n, int target) {
 	/* If no matches are found, return NULL */
 	return NULL;
 }
+
+
+Part 3: Strings
+3.1:
+#include <ctype.h>
+#include <string.h>
+#include <stdio.h>
+
+/* Capitalizes all lowercase characters in the provided string.
+Ignores already capital letters and non-alpha characters.
+Edits the string characters in place.
+Parameters:
+	char *lower: 	String that will be capitalized */
+void capitalize(char *lower) {
+	/* Length of the string, excluding the NULLCHAR */
+	int n = strlen(lower);
+	int i;
+	char curr;
+	/* Iterate through each character of the string */
+	for (i=0; i<n; i++) {
+		/* Parse current char from index i. *(lower+i) = lower[i] */
+		curr = *(lower + i);
+		/* Check if the character is an alphabet letter and it is lowercase */
+		if ( isalpha(curr) && islower(curr) ) {
+			/* If so, capitalize and replace it in the original string */
+			*(lower+i) = (char)toupper(curr);
+		}
+	}
+	return;
+}
+
+3.2:
