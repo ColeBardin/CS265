@@ -201,14 +201,6 @@ This program prompts the user for an integer input
 
 Then it prints out a isosceles triangle of the given length with `*` chars to the terminal justifed to the right
 
-Example: 
-`./ult
-4
-****
-***
-**
-*`
-
 ### urt.c
 
 Usage: `./urt`
@@ -216,14 +208,6 @@ Usage: `./urt`
 This program prompts the user for an integer input
 
 Then it prints out an ososceles triangle of the given length with `*` chars to the terminal justified to the left
-
-Example:
-`./urt
-4
-****
- ***
-  **
-   *`
 
 ### rev-array.c
 
