@@ -6,7 +6,7 @@ FILE *input;
 int curr;
 
 void usage() {
-	fprintf(stderr, "Usage: ./msg [input filename]\n");
+	fprintf(stderr, "Usage: ./msg [input-filename]\n");
 	return;
 }
 
