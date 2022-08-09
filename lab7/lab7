@@ -5,10 +5,10 @@ Part 1: Functions
 
 1.2: Done, file called func2.c
 
+
 Part 2: Pointers
 2.1:
 #include <stddef.h>
-
 /* binSearch: Performs Binary Search on integer array.
 If target is found, returns its index.
 If target is not found, returns size_t n 
