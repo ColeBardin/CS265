@@ -74,6 +74,7 @@ void readPeople( person* a[], FILE* f )
 	{
 		// We read a last name (with the newline)
 		// - get memory for person
+		/* TODO: fix malloc error on third call */
 		temp = (person*)malloc(sizeof(*temp));
 		printf("Malloc called\n");
 		if (!temp) {
