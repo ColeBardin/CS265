@@ -46,6 +46,20 @@ size_t listLength( const sNode *L ){
 	return n;
 }
 
+sNode* listRev( sNode *L ){
+	sNode *prev=NULL;
+	sNode *curr=L;
+	sNode *next;
+
+	for (; next;){
+		next = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr=next;
+	}
+	return prev;
+}
+
 int main() {
 	sNode *head = NULL;
 	sNode *item;
@@ -56,10 +70,16 @@ int main() {
 		list_add(&head, item);
 	}
 
+	printf("List:\n");
 	for (item = head; item; item = item->next) {
 		printf("%d\n", item->data);
 	}
-
 	printf("List has %zu item\n", listLength(head));
+
+	printf("Reversed list:\n");
+	head = listRev(head);
+	for (item = head; item; item = item->next) {
+		printf("%d\n", item->data);
+	}
 	return 0;
 }
