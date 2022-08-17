@@ -26,4 +26,75 @@ struct time sec2hms( int secs ){
 }
 
 1.2:
+#include <string.h>
 
+/* readPeople function:
+Returns void
+Reads no more than 100 entries from file
+Entries contain first name, last name and age separated by newline
+Allocates memory on heap for each entry
+Populates a struct for each entry and adds it to given array
+Parameters:
+	person* a[]: 		Array of pointers to person structs
+	FILE* f: 			Opened file pointer to read from */
+void readPeople( person* a[], FILE* f ) 
+{
+	char *buff = NULL ;
+	size_t len ;
+	size_t cnt = 0 ;
+
+	/* Create temp instance of struct */
+	person *temp=NULL;
+	/* Read newline until EOF */
+	while( getline( &buff, &len, f ) > 1 ) 
+	{
+		/* Allocate memory on HEAP for struct instance */
+		temp = malloc(sizeof(*temp));
+		/* Add the struct instance pointer to the array */
+		a[cnt] = temp;
+		/* Use strcpy from string.h to copy the lastname into the struct */
+		strcpy(temp->last, buff);
+
+		/* Read next line */
+		getline(&buff, &len, f);
+		/* Copy firstname into the struct */
+		strcpy(temp->first, buff);
+
+		/* Read next line */
+		getline(&buff, &len, f);
+		/* Convert string to int and insert into struct */
+		temp->age = atoi(buff);
+
+		/* Increment count */
+		++cnt ;
+	}
+
+	free( buff ) ;
+}
+
+1.3:
+/* freePeople function:
+Searches through array a of length n and frees the memory of all non-NULL elements
+Array elements must either contain malloc'd pointers to person typedefs or be NULL
+Only frees non-NULL elements
+Returns void
+Parameters:
+	person* a[]: 		Array of pointers to person typedefs
+	size_t n: 			Length of the array as a size t
+void freePeople( person* a[], size_t n ) 
+{
+	/* Iterate i for each index of the array */
+	for (int i=0; i<n; i++) {
+		/* If element is not NULL (pointer to struct instance */
+		if (a[i] != NULL) {
+			/* Free it */
+			free(a[i]);
+			/* Set freed element to NULL */
+			a[i] = NULL;
+		}
+	}
+}
+
+Part 2: Lists
+
+2.1
