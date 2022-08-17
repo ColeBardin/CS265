@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define CAP 100
 
@@ -48,7 +49,11 @@ int main( int argc, char **argv )
 	}
 
 	readPeople( team, fin ) ;
-
+	for (int i=0; i<CAP; i++){
+		if (team[i] != NULL) {
+			printf("Member: %s, %s %d\n", team[i]->last, team[i]->first, team[i]->age);
+		}
+	}
 	freePeople( team, CAP ) ;
 
 	return 0 ;
@@ -69,32 +74,29 @@ void readPeople( person* a[], FILE* f )
 	size_t len ;
 	size_t cnt = 0 ;
 
-	person *temp;
+	/* Create temp instance of struct */
+	person *temp=NULL;
+	/* Read newline until EOF */
 	while( getline( &buff, &len, f ) > 1 ) 
 	{
-		// We read a last name (with the newline)
-		// - get memory for person
-		/* TODO: fix malloc error on third call */
-		temp = (person*)malloc(sizeof(*temp));
-		printf("Malloc called\n");
-		if (!temp) {
-			fprintf(stderr, "ERROR: Malloc failed while trying to readPeople\n");
-			return;
-		}
-		// - append to array
+		/* Allocate memory on HEAP for struct instance */
+		temp = malloc(sizeof(*temp));
+		/* Add the struct instance pointer to the array */
 		a[cnt] = temp;
-		// - copy string name manually since string.h is not included
-		for (int i=0; i<len; i++){
-			temp->last[i] = buff[i];
-		}
-		// - read next 2 lines, fill it in 
+		/* Use strcpy from string.h to copy the lastname into the struct */
+		strcpy(temp->last, buff);
+
+		/* Read next line */
 		getline(&buff, &len, f);
-		for (int i=0; i<len; i++){
-			temp->first[i] = buff[i];
-		}
+		/* Copy firstname into the struct */
+		strcpy(temp->first, buff);
+
+		/* Read next line */
 		getline(&buff, &len, f);
+		/* Convert string to int and insert into struct */
 		temp->age = atoi(buff);
 
+		/* Increment count */
 		++cnt ;
 	}
 
@@ -103,10 +105,13 @@ void readPeople( person* a[], FILE* f )
 
 void freePeople( person* a[], size_t n ) 
 {
-	// Do NOT assume array is dense.  Check every element
+	/* Iterate i for each index of the array */
 	for (int i=0; i<n; i++) {
+		/* If element is not NULL (pointer to struct instance */
 		if (a[i] != NULL) {
+			/* Free it */
 			free(a[i]);
+			/* Set freed element to NULL */
 			a[i] = NULL;
 		}
 	}
