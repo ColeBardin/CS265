@@ -46,17 +46,30 @@ size_t listLength( const sNode *L ){
 	return n;
 }
 
+/* listRev function:
+Reverses a list that is passed to it
+Returns the new head of the reversed list
+Parameter:
+	sNode *L: 		Head of list that will be reversed */
 sNode* listRev( sNode *L ){
+	/* Previous item tracker starts off as NULL */
 	sNode *prev=NULL;
+	/* Current item tracker starts off as HEAD */
 	sNode *curr=L;
+	/* Next item tracker will be set in while loop */
 	sNode *next;
 
-	for (; next;){
+	while(next){
+		/* Save the value that curr points to in original direction */
 		next = curr->next;
+		/* Point curr to the item behind it to reverse direction */
 		curr->next = prev;
+		/* Move previous item tracker forward in original direction */
 		prev = curr;
+		/* Move current item tracker forward in original direction */
 		curr=next;
 	}
+	/* Once next is NULL (Original TAIL), return previous (New HEAD) */
 	return prev;
 }
 
