@@ -59,6 +59,12 @@ sNode* listRev( sNode *L ){
 	/* Next item tracker will be set in while loop */
 	sNode *next;
 
+	/* If list is uninitialized (NULL) */
+	if (L == NULL) {
+		/* Return uninitialized list */
+		return L;
+	}
+
 	while(next){
 		/* Save the value that curr points to in original direction */
 		next = curr->next;
